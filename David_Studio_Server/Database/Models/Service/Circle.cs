@@ -1,4 +1,5 @@
 ﻿using David_Studio_Server.Database.Base;
+using System.Text.Json.Serialization;
 
 namespace David_Studio_Server.Database.Models.Service
 {
@@ -6,5 +7,8 @@ namespace David_Studio_Server.Database.Models.Service
     {
         public int TagId { get; set; }
         public int CircleBlockId { get; set; }
+
+        [JsonIgnore]
+        public virtual CircleBlock? CircleBlock { get; set; }
     }
 }

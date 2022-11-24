@@ -5,12 +5,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace David_Studio_Server.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AlterDatabase()
-                .Annotation("MySql:CharSet", "utf8mb4");
+                .Annotation("MySql:CharSet", "utf8mb3");
 
             migrationBuilder.CreateTable(
                 name: "Contacts",
@@ -18,20 +18,21 @@ namespace David_Studio_Server.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Email = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    PhoneNumber = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Message = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4")
+                    Name = table.Column<string>(type: "VARCHAR(64)", maxLength: 64, nullable: false, collation: "utf8mb3_general_ci")
+                        .Annotation("MySql:CharSet", "utf8mb3"),
+                    Email = table.Column<string>(type: "VARCHAR(256)", maxLength: 256, nullable: false, collation: "utf8mb3_general_ci")
+                        .Annotation("MySql:CharSet", "utf8mb3"),
+                    PhoneNumber = table.Column<string>(type: "VARCHAR(64)", maxLength: 64, nullable: true, collation: "utf8mb3_general_ci")
+                        .Annotation("MySql:CharSet", "utf8mb3"),
+                    Message = table.Column<string>(type: "VARCHAR(1024)", maxLength: 1024, nullable: false, collation: "utf8mb3_general_ci")
+                        .Annotation("MySql:CharSet", "utf8mb3")
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Contacts", x => x.Id);
                 })
-                .Annotation("MySql:CharSet", "utf8mb4");
+                .Annotation("MySql:CharSet", "utf8mb3")
+                .Annotation("Relational:Collation", "utf8mb3_general_ci");
 
             migrationBuilder.CreateTable(
                 name: "Languages",
@@ -39,16 +40,17 @@ namespace David_Studio_Server.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Culture = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4")
+                    Name = table.Column<string>(type: "longtext", nullable: false, collation: "utf8mb3_general_ci")
+                        .Annotation("MySql:CharSet", "utf8mb3"),
+                    Culture = table.Column<string>(type: "longtext", nullable: false, collation: "utf8mb3_general_ci")
+                        .Annotation("MySql:CharSet", "utf8mb3")
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Languages", x => x.Id);
                 })
-                .Annotation("MySql:CharSet", "utf8mb4");
+                .Annotation("MySql:CharSet", "utf8mb3")
+                .Annotation("Relational:Collation", "utf8mb3_general_ci");
 
             migrationBuilder.CreateTable(
                 name: "Paths",
@@ -56,14 +58,15 @@ namespace David_Studio_Server.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Value = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4")
+                    Value = table.Column<string>(type: "VARCHAR(256)", maxLength: 256, nullable: false, collation: "utf8mb3_general_ci")
+                        .Annotation("MySql:CharSet", "utf8mb3")
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Paths", x => x.Id);
                 })
-                .Annotation("MySql:CharSet", "utf8mb4");
+                .Annotation("MySql:CharSet", "utf8mb3")
+                .Annotation("Relational:Collation", "utf8mb3_general_ci");
 
             migrationBuilder.CreateTable(
                 name: "Tags",
@@ -71,38 +74,38 @@ namespace David_Studio_Server.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    LongName = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4")
+                    Name = table.Column<string>(type: "VARCHAR(16)", maxLength: 16, nullable: false, collation: "utf8mb3_general_ci")
+                        .Annotation("MySql:CharSet", "utf8mb3"),
+                    LongName = table.Column<string>(type: "VARCHAR(64)", maxLength: 64, nullable: true, collation: "utf8mb3_general_ci")
+                        .Annotation("MySql:CharSet", "utf8mb3")
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Tags", x => x.Id);
                 })
-                .Annotation("MySql:CharSet", "utf8mb4");
+                .Annotation("MySql:CharSet", "utf8mb3")
+                .Annotation("Relational:Collation", "utf8mb3_general_ci");
 
             migrationBuilder.CreateTable(
-                name: "Translations",
+                name: "Jumbotrons",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Text = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    LanguageId = table.Column<int>(type: "int", nullable: false)
+                    PathId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Translations", x => x.Id);
+                    table.PrimaryKey("PK_Jumbotrons", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Translations_Languages_LanguageId",
-                        column: x => x.LanguageId,
-                        principalTable: "Languages",
+                        name: "FK_Jumbotrons_Paths_PathId",
+                        column: x => x.PathId,
+                        principalTable: "Paths",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
-                .Annotation("MySql:CharSet", "utf8mb4");
+                .Annotation("MySql:CharSet", "utf8mb3")
+                .Annotation("Relational:Collation", "utf8mb3_general_ci");
 
             migrationBuilder.CreateTable(
                 name: "Projects",
@@ -110,10 +113,10 @@ namespace David_Studio_Server.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Title = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    ImgUrl = table.Column<string>(type: "longtext", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Title = table.Column<string>(type: "VARCHAR(64)", maxLength: 64, nullable: false, collation: "utf8mb3_general_ci")
+                        .Annotation("MySql:CharSet", "utf8mb3"),
+                    ImgUrl = table.Column<string>(type: "VARCHAR(2083)", maxLength: 2083, nullable: true, collation: "utf8mb3_general_ci")
+                        .Annotation("MySql:CharSet", "utf8mb3"),
                     Popularity = table.Column<int>(type: "int", nullable: false),
                     PathId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -127,62 +130,8 @@ namespace David_Studio_Server.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "Circles",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    TagId = table.Column<int>(type: "int", nullable: false),
-                    CircleBlockId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Circles", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Circles_Tags_TagId",
-                        column: x => x.TagId,
-                        principalTable: "Tags",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "Jumbotrons",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    PathId = table.Column<int>(type: "int", nullable: false),
-                    TitleTranslationId = table.Column<int>(type: "int", nullable: false),
-                    DescriptionTranslationId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Jumbotrons", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Jumbotrons_Paths_PathId",
-                        column: x => x.PathId,
-                        principalTable: "Paths",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Jumbotrons_Translations_DescriptionTranslationId",
-                        column: x => x.DescriptionTranslationId,
-                        principalTable: "Translations",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Jumbotrons_Translations_TitleTranslationId",
-                        column: x => x.TitleTranslationId,
-                        principalTable: "Translations",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
+                .Annotation("MySql:CharSet", "utf8mb3")
+                .Annotation("Relational:Collation", "utf8mb3_general_ci");
 
             migrationBuilder.CreateTable(
                 name: "Services",
@@ -190,10 +139,8 @@ namespace David_Studio_Server.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    ImgUrl = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    TitleTranslationId = table.Column<int>(type: "int", nullable: false),
-                    DescriptionTranslationId = table.Column<int>(type: "int", nullable: false),
+                    ImgUrl = table.Column<string>(type: "VARCHAR(2083)", maxLength: 2083, nullable: false, collation: "utf8mb3_general_ci")
+                        .Annotation("MySql:CharSet", "utf8mb3"),
                     PathId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -205,20 +152,9 @@ namespace David_Studio_Server.Migrations
                         principalTable: "Paths",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Services_Translations_DescriptionTranslationId",
-                        column: x => x.DescriptionTranslationId,
-                        principalTable: "Translations",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Services_Translations_TitleTranslationId",
-                        column: x => x.TitleTranslationId,
-                        principalTable: "Translations",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 })
-                .Annotation("MySql:CharSet", "utf8mb4");
+                .Annotation("MySql:CharSet", "utf8mb3")
+                .Annotation("Relational:Collation", "utf8mb3_general_ci");
 
             migrationBuilder.CreateTable(
                 name: "ProjectImages",
@@ -226,8 +162,8 @@ namespace David_Studio_Server.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Url = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Url = table.Column<string>(type: "VARCHAR(2083)", maxLength: 2083, nullable: false, collation: "utf8mb3_general_ci")
+                        .Annotation("MySql:CharSet", "utf8mb3"),
                     ProjectId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -240,7 +176,8 @@ namespace David_Studio_Server.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
-                .Annotation("MySql:CharSet", "utf8mb4");
+                .Annotation("MySql:CharSet", "utf8mb3")
+                .Annotation("Relational:Collation", "utf8mb3_general_ci");
 
             migrationBuilder.CreateTable(
                 name: "ProjectsTags",
@@ -267,7 +204,8 @@ namespace David_Studio_Server.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
-                .Annotation("MySql:CharSet", "utf8mb4");
+                .Annotation("MySql:CharSet", "utf8mb3")
+                .Annotation("Relational:Collation", "utf8mb3_general_ci");
 
             migrationBuilder.CreateTable(
                 name: "CircleBlocks",
@@ -275,8 +213,8 @@ namespace David_Studio_Server.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Title = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Title = table.Column<string>(type: "VARCHAR(64)", maxLength: 64, nullable: false, collation: "utf8mb3_general_ci")
+                        .Annotation("MySql:CharSet", "utf8mb3"),
                     ServiceId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -289,7 +227,73 @@ namespace David_Studio_Server.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 })
-                .Annotation("MySql:CharSet", "utf8mb4");
+                .Annotation("MySql:CharSet", "utf8mb3")
+                .Annotation("Relational:Collation", "utf8mb3_general_ci");
+
+            migrationBuilder.CreateTable(
+                name: "TemplateTranslations",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Title = table.Column<string>(type: "longtext", nullable: false, collation: "utf8mb3_general_ci")
+                        .Annotation("MySql:CharSet", "utf8mb3"),
+                    Description = table.Column<string>(type: "longtext", nullable: false, collation: "utf8mb3_general_ci")
+                        .Annotation("MySql:CharSet", "utf8mb3"),
+                    JumbotronId = table.Column<int>(type: "int", nullable: true),
+                    ServiceId = table.Column<int>(type: "int", nullable: true),
+                    LanguageId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TemplateTranslations", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TemplateTranslations_Jumbotrons_JumbotronId",
+                        column: x => x.JumbotronId,
+                        principalTable: "Jumbotrons",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_TemplateTranslations_Languages_LanguageId",
+                        column: x => x.LanguageId,
+                        principalTable: "Languages",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_TemplateTranslations_Services_ServiceId",
+                        column: x => x.ServiceId,
+                        principalTable: "Services",
+                        principalColumn: "Id");
+                })
+                .Annotation("MySql:CharSet", "utf8mb3")
+                .Annotation("Relational:Collation", "utf8mb3_general_ci");
+
+            migrationBuilder.CreateTable(
+                name: "Circles",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    TagId = table.Column<int>(type: "int", nullable: false),
+                    CircleBlockId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Circles", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Circles_CircleBlocks_CircleBlockId",
+                        column: x => x.CircleBlockId,
+                        principalTable: "CircleBlocks",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Circles_Tags_TagId",
+                        column: x => x.TagId,
+                        principalTable: "Tags",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb3")
+                .Annotation("Relational:Collation", "utf8mb3_general_ci");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CircleBlocks_ServiceId",
@@ -297,26 +301,19 @@ namespace David_Studio_Server.Migrations
                 column: "ServiceId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Circles_TagId",
+                name: "IX_Circles_CircleBlockId",
                 table: "Circles",
-                column: "TagId",
-                unique: true);
+                column: "CircleBlockId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Jumbotrons_DescriptionTranslationId",
-                table: "Jumbotrons",
-                column: "DescriptionTranslationId");
+                name: "IX_Circles_TagId",
+                table: "Circles",
+                column: "TagId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Jumbotrons_PathId",
                 table: "Jumbotrons",
-                column: "PathId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Jumbotrons_TitleTranslationId",
-                table: "Jumbotrons",
-                column: "TitleTranslationId");
+                column: "PathId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProjectImages_ProjectId",
@@ -326,8 +323,7 @@ namespace David_Studio_Server.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Projects_PathId",
                 table: "Projects",
-                column: "PathId",
-                unique: true);
+                column: "PathId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProjectsTags_ProjectId",
@@ -340,40 +336,33 @@ namespace David_Studio_Server.Migrations
                 column: "TagId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Services_DescriptionTranslationId",
-                table: "Services",
-                column: "DescriptionTranslationId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Services_PathId",
                 table: "Services",
-                column: "PathId",
-                unique: true);
+                column: "PathId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Services_TitleTranslationId",
-                table: "Services",
-                column: "TitleTranslationId");
+                name: "IX_TemplateTranslations_JumbotronId",
+                table: "TemplateTranslations",
+                column: "JumbotronId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Translations_LanguageId",
-                table: "Translations",
+                name: "IX_TemplateTranslations_LanguageId",
+                table: "TemplateTranslations",
                 column: "LanguageId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TemplateTranslations_ServiceId",
+                table: "TemplateTranslations",
+                column: "ServiceId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "CircleBlocks");
-
-            migrationBuilder.DropTable(
                 name: "Circles");
 
             migrationBuilder.DropTable(
                 name: "Contacts");
-
-            migrationBuilder.DropTable(
-                name: "Jumbotrons");
 
             migrationBuilder.DropTable(
                 name: "ProjectImages");
@@ -382,7 +371,10 @@ namespace David_Studio_Server.Migrations
                 name: "ProjectsTags");
 
             migrationBuilder.DropTable(
-                name: "Services");
+                name: "TemplateTranslations");
+
+            migrationBuilder.DropTable(
+                name: "CircleBlocks");
 
             migrationBuilder.DropTable(
                 name: "Projects");
@@ -391,13 +383,16 @@ namespace David_Studio_Server.Migrations
                 name: "Tags");
 
             migrationBuilder.DropTable(
-                name: "Translations");
-
-            migrationBuilder.DropTable(
-                name: "Paths");
+                name: "Jumbotrons");
 
             migrationBuilder.DropTable(
                 name: "Languages");
+
+            migrationBuilder.DropTable(
+                name: "Services");
+
+            migrationBuilder.DropTable(
+                name: "Paths");
         }
     }
 }

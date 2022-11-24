@@ -9,6 +9,7 @@ namespace David_Studio_Server.Database.Models.Project
         public Tag()
         {
             Projects = new HashSet<ProjectTag>();
+            Circles = new HashSet<Circle>();
         }
 
         public string Name { get; set; } = null!;
@@ -17,6 +18,6 @@ namespace David_Studio_Server.Database.Models.Project
         [JsonIgnore]
         public virtual ICollection<ProjectTag> Projects { get; set; }
         [JsonIgnore]
-        public virtual Circle? Circle { get; set; }
+        public virtual ICollection<Circle> Circles { get; set; }
     }
 }

@@ -9,8 +9,8 @@ namespace David_Studio_Server.Database.Models.Project
         public int TagId { get; set; }
 
         [JsonIgnore]
-        public virtual Project Project { get; set; } = null!;
+        public virtual Project? Project { get; set; } = null!;
         [JsonIgnore]
-        public virtual Tag Tag { get; set; } = null!;
+        public virtual Tag? Tag { get; set; } = null!;
     }
 }
