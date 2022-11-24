@@ -16,7 +16,7 @@ namespace David_Studio_Server.Controllers
 
         [Route("services")]
         [HttpGet]
-        public async Task<string> GetServices(string culture)
+        public async Task<string> GetServices([FromQuery] string culture)
         {
             return await _data.GetServicesForHome(culture);
         }
