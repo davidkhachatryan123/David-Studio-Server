@@ -2,6 +2,7 @@
 using David_Studio_Server.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace David_Studio_Server.Migrations
 {
     [DbContext(typeof(davidstudioContext))]
-    partial class davidstudioContextModelSnapshot : ModelSnapshot
+    [Migration("20221124121119_InitialMigration")]
+    partial class InitialMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,7 +43,7 @@ namespace David_Studio_Server.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Contacts", (string)null);
+                    b.ToTable("Contacts");
                 });
 
             modelBuilder.Entity("David_Studio_Server.Database.Models.Path.Jumbotron", b =>
@@ -68,7 +70,7 @@ namespace David_Studio_Server.Migrations
 
                     b.HasIndex("TitleTranslationId");
 
-                    b.ToTable("Jumbotrons", (string)null);
+                    b.ToTable("Jumbotrons");
                 });
 
             modelBuilder.Entity("David_Studio_Server.Database.Models.Path.Path", b =>
@@ -83,7 +85,7 @@ namespace David_Studio_Server.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Paths", (string)null);
+                    b.ToTable("Paths");
                 });
 
             modelBuilder.Entity("David_Studio_Server.Database.Models.Project.Project", b =>
@@ -110,7 +112,7 @@ namespace David_Studio_Server.Migrations
                     b.HasIndex("PathId")
                         .IsUnique();
 
-                    b.ToTable("Projects", (string)null);
+                    b.ToTable("Projects");
                 });
 
             modelBuilder.Entity("David_Studio_Server.Database.Models.Project.ProjectImage", b =>
@@ -130,7 +132,7 @@ namespace David_Studio_Server.Migrations
 
                     b.HasIndex("ProjectId");
 
-                    b.ToTable("ProjectImages", (string)null);
+                    b.ToTable("ProjectImages");
                 });
 
             modelBuilder.Entity("David_Studio_Server.Database.Models.Project.ProjectTag", b =>
@@ -151,7 +153,7 @@ namespace David_Studio_Server.Migrations
 
                     b.HasIndex("TagId");
 
-                    b.ToTable("ProjectsTags", (string)null);
+                    b.ToTable("ProjectsTags");
                 });
 
             modelBuilder.Entity("David_Studio_Server.Database.Models.Project.Tag", b =>
@@ -169,7 +171,7 @@ namespace David_Studio_Server.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tags", (string)null);
+                    b.ToTable("Tags");
                 });
 
             modelBuilder.Entity("David_Studio_Server.Database.Models.Service.Circle", b =>
@@ -189,7 +191,7 @@ namespace David_Studio_Server.Migrations
                     b.HasIndex("TagId")
                         .IsUnique();
 
-                    b.ToTable("Circles", (string)null);
+                    b.ToTable("Circles");
                 });
 
             modelBuilder.Entity("David_Studio_Server.Database.Models.Service.CircleBlock", b =>
@@ -209,7 +211,7 @@ namespace David_Studio_Server.Migrations
 
                     b.HasIndex("ServiceId");
 
-                    b.ToTable("CircleBlocks", (string)null);
+                    b.ToTable("CircleBlocks");
                 });
 
             modelBuilder.Entity("David_Studio_Server.Database.Models.Service.Service", b =>
@@ -240,7 +242,7 @@ namespace David_Studio_Server.Migrations
 
                     b.HasIndex("TitleTranslationId");
 
-                    b.ToTable("Services", (string)null);
+                    b.ToTable("Services");
                 });
 
             modelBuilder.Entity("David_Studio_Server.Database.Models.Translation.Language", b =>
@@ -259,7 +261,7 @@ namespace David_Studio_Server.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Languages", (string)null);
+                    b.ToTable("Languages");
                 });
 
             modelBuilder.Entity("David_Studio_Server.Database.Models.Translation.Translation", b =>
@@ -279,7 +281,7 @@ namespace David_Studio_Server.Migrations
 
                     b.HasIndex("LanguageId");
 
-                    b.ToTable("Translations", (string)null);
+                    b.ToTable("Translations");
                 });
 
             modelBuilder.Entity("David_Studio_Server.Database.Models.Path.Jumbotron", b =>

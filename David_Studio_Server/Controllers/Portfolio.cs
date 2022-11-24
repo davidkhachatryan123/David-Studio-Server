@@ -14,7 +14,7 @@ namespace David_Studio_Server.Controllers
             this._data = data;
         }
 
-        [Route("projects")]
+        /*[Route("projects")]
         [HttpGet]
         public async Task<string> GetProjects(int Count)
         {
@@ -26,6 +26,6 @@ namespace David_Studio_Server.Controllers
         public async Task<string> GetTags(int count, string? value)
         {
             return await _data.GetTagsList(count, value);
-        }
+        }*/
     }
 }

@@ -1,10 +1,10 @@
-﻿using System.Text.Json.Serialization;
+﻿using David_Studio_Server.Database.Base;
+using System.Text.Json.Serialization;
 
-namespace David_Studio_Server.Database.Models
+namespace David_Studio_Server.Database.Models.Project
 {
-    public partial class ProjectTag
+    public class ProjectTag : Identity
     {
-        public int Id { get; set; }
         public int ProjectId { get; set; }
         public int TagId { get; set; }
 

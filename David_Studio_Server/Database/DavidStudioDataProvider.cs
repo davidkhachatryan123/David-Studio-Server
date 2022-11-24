@@ -7,8 +7,8 @@ namespace David_Studio_Server.Database
 {
     public interface IDavidStudioDataProvider
     {
-        Task<string> GetProjectsList(int Count);
-        Task<string> GetTagsList(int count, string? value);
+        /*Task<string> GetProjectsList(int Count);
+        Task<string> GetTagsList(int count, string? value);*/
     }
 
     public class DavidStudioDataProvider : IDavidStudioDataProvider
@@ -20,7 +20,7 @@ namespace David_Studio_Server.Database
             _context = context;
         }
 
-        public async Task<string> GetProjectsList(int Count)
+        /*public async Task<string> GetProjectsList(int Count)
         {
             var result = await _context.Projects.Include(p => p.Tags).ThenInclude(pt => pt.Tag)
                 .Select(p => new
@@ -61,6 +61,6 @@ namespace David_Studio_Server.Database
             }
 
             return JsonSerializer.Serialize(result);
-        }
+        }*/
     }
 }

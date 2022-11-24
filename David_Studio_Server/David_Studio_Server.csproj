@@ -16,6 +16,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Database\ModelConfigrations\Path\" />
+    <Folder Include="Database\ModelConfigrations\Project\" />
+    <Folder Include="Database\ModelConfigrations\Service\" />
+    <Folder Include="Database\ModelConfigrations\Translation\" />
+    <Folder Include="Migrations\" />
     <Folder Include="Models\" />
   </ItemGroup>
 
