@@ -1,14 +1,11 @@
-﻿using David_Studio_Server.Database.Models;
-using David_Studio_Server.Database.Models.Translation;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Immutable;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Text.Json;
 
 namespace David_Studio_Server.Database
 {
     public interface IDavidStudioDataProvider
     {
-        Task<string> GetServicesForHome(string culture);
+        //Task<string> GetServicesForHome(string culture);
 
         /*Task<string> GetProjectsList(int Count);
         Task<string> GetTagsList(int count, string? value);*/
@@ -23,7 +20,7 @@ namespace David_Studio_Server.Database
             _context = context;
         }
 
-        public async Task<string> GetServicesForHome(string culture)
+        /*public async Task<string> GetServicesForHome(string culture)
         {
             var result = await _context.Services
                 .Include(s => s.Translations)
@@ -39,7 +36,7 @@ namespace David_Studio_Server.Database
                 .ToListAsync();
 
             return JsonSerializer.Serialize(result);
-        }
+        }*/
 
         /*public async Task<string> GetProjectsList(int Count)
         {

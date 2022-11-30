@@ -40,3 +40,10 @@ D:\Programming\David_Studio_Server\David_Studio_Server\obj\Debug\net6.0\staticwe
 D:\Programming\David_Studio_Server\David_Studio_Server\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.David_Studio_Server.props
 D:\Programming\David_Studio_Server\David_Studio_Server\obj\Debug\net6.0\staticwebassets.pack.json
 D:\Programming\David_Studio_Server\David_Studio_Server\bin\Debug\net6.0\David_Studio_Server.staticwebassets.runtime.json
+D:\Programming\David_Studio_Server\David_Studio_Server\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\Programming\David_Studio_Server\David_Studio_Server\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\Programming\David_Studio_Server\David_Studio_Server\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
+D:\Programming\David_Studio_Server\David_Studio_Server\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
+D:\Programming\David_Studio_Server\David_Studio_Server\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\Programming\David_Studio_Server\David_Studio_Server\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
+D:\Programming\David_Studio_Server\David_Studio_Server\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
