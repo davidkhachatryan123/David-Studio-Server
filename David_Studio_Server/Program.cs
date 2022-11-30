@@ -1,6 +1,8 @@
 using David_Studio_Server.Database;
 using David_Studio_Server.Services;
+using David_Studio_Server.Services.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -37,7 +39,15 @@ builder.Services.AddAuthentication(options =>
 });
 builder.Services.AddAuthorization();
 
-builder.Services.AddSingleton<IUserAuthentication, UserAuthentication>();
+builder.Services.Configure<IdentityOptions>(opts =>
+{
+    opts.Lockout.AllowedForNewUsers = true;
+    opts.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(1);
+    opts.Lockout.MaxFailedAccessAttempts = 3;
+});
+
+
+builder.Services.AddSingleton<ICryptography, Cryptography>();
 
 string connection = builder.Configuration.GetConnectionString("DefaultConnection");
 var serverVersion = new MySqlServerVersion(new Version(8, 0, 31));
@@ -45,6 +55,7 @@ var serverVersion = new MySqlServerVersion(new Version(8, 0, 31));
 builder.Services.AddDbContext<davidstudioContext>(options => options.UseMySql(connection, serverVersion));
 
 builder.Services.AddScoped<IDavidStudioDataProvider, DavidStudioDataProvider>();
+builder.Services.AddScoped<IUserAuthentication, UserAuthentication>();
 
 builder.Services.AddControllers();
 
@@ -58,7 +69,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
 
 app.UseCors("AllowOrigin");
 

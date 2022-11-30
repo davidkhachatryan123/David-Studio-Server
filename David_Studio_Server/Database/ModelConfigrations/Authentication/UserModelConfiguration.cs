@@ -10,8 +10,10 @@ namespace David_Studio_Server.Database.Models.Authentication
         protected override void AddBuilder(EntityTypeBuilder<User> builder)
         {
             builder.Property(x => x.Login).HasColumnType("VARCHAR").HasMaxLength(16);
-            builder.Property(x => x.Password).HasColumnType("VARCHAR").HasMaxLength(512);
-            builder.Property(x => x.Password).HasColumnType("VARCHAR").HasMaxLength(16);
+            builder.Property(x => x.PasswordHash).HasColumnType("VARCHAR").HasMaxLength(256);
+            builder.Property(x => x.Salt).HasColumnType("VARCHAR").HasMaxLength(32);
+
+            builder.HasIndex(x => x.Login).IsUnique();
         }
 
         protected override string TableName()

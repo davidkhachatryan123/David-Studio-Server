@@ -47,3 +47,4 @@ D:\Programming\David_Studio_Server\David_Studio_Server\bin\Debug\net6.0\Microsof
 D:\Programming\David_Studio_Server\David_Studio_Server\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 D:\Programming\David_Studio_Server\David_Studio_Server\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
 D:\Programming\David_Studio_Server\David_Studio_Server\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
+D:\Programming\David_Studio_Server\David_Studio_Server\bin\Debug\net6.0\System.Security.Permissions.dll

@@ -3,9 +3,9 @@ using System.Text.Json.Serialization;
 
 namespace David_Studio_Server.Database.Models.Authentication
 {
-    public class UserGroup : Identity
+    public class UserRole : Identity
     {
-        public UserGroup()
+        public UserRole()
         {
             Users = new HashSet<User>();
         }

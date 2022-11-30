@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace David_Studio_Server.Migrations
 {
     [DbContext(typeof(davidstudioContext))]
-    [Migration("20221130112942_AddedSaltFieldInUserModel")]
-    partial class AddedSaltFieldInUserModel
+    [Migration("20221130165436_PasswordNameChanged")]
+    partial class PasswordNameChanged
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -35,26 +35,40 @@ namespace David_Studio_Server.Migrations
                         .HasMaxLength(16)
                         .HasColumnType("VARCHAR(16)");
 
-                    b.Property<string>("Password")
+                    b.Property<string>("PasswordHash")
                         .IsRequired()
-                        .HasMaxLength(16)
-                        .HasColumnType("VARCHAR(16)");
+                        .HasMaxLength(256)
+                        .HasColumnType("VARCHAR(256)");
 
                     b.Property<string>("Salt")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasMaxLength(32)
+                        .HasColumnType("VARCHAR(32)");
 
-                    b.Property<int>("UserGroupId")
+                    b.Property<int>("UserRoleId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserGroupId");
+                    b.HasIndex("Login")
+                        .IsUnique();
+
+                    b.HasIndex("UserRoleId");
 
                     b.ToTable("Users", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Login = "admin",
+                            PasswordHash = "yY4+k3fnclUrUA8ysvvdyAuKGKeO83FssRuLKzchPTXVSAdkDUlUjeg35KNLgji8BIN2rmYmI41lj1nt0xIvMQ==",
+                            Salt = "75BpWiwIYziitmZ3WyndvA==",
+                            UserRoleId = 1
+                        });
                 });
 
-            modelBuilder.Entity("David_Studio_Server.Database.Models.Authentication.UserGroup", b =>
+            modelBuilder.Entity("David_Studio_Server.Database.Models.Authentication.UserRole", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -68,21 +82,31 @@ namespace David_Studio_Server.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("UserGroups", (string)null);
+                    b.HasIndex("Role")
+                        .IsUnique();
+
+                    b.ToTable("UserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Role = "admin"
+                        });
                 });
 
             modelBuilder.Entity("David_Studio_Server.Database.Models.Authentication.User", b =>
                 {
-                    b.HasOne("David_Studio_Server.Database.Models.Authentication.UserGroup", "UserGroup")
+                    b.HasOne("David_Studio_Server.Database.Models.Authentication.UserRole", "UserRole")
                         .WithMany("Users")
-                        .HasForeignKey("UserGroupId")
+                        .HasForeignKey("UserRoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("UserGroup");
+                    b.Navigation("UserRole");
                 });
 
-            modelBuilder.Entity("David_Studio_Server.Database.Models.Authentication.UserGroup", b =>
+            modelBuilder.Entity("David_Studio_Server.Database.Models.Authentication.UserRole", b =>
                 {
                     b.Navigation("Users");
                 });

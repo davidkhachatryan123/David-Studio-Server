@@ -2,6 +2,7 @@
 using David_Studio_Server.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace David_Studio_Server.Migrations
 {
     [DbContext(typeof(davidstudioContext))]
-    partial class davidstudioContextModelSnapshot : ModelSnapshot
+    [Migration("20221130160451_UniqueIndexesAdded")]
+    partial class UniqueIndexesAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,7 +35,7 @@ namespace David_Studio_Server.Migrations
                         .HasMaxLength(16)
                         .HasColumnType("VARCHAR(16)");
 
-                    b.Property<string>("PasswordHash")
+                    b.Property<string>("Password")
                         .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("VARCHAR(256)");
@@ -60,8 +62,8 @@ namespace David_Studio_Server.Migrations
                         {
                             Id = 1,
                             Login = "admin",
-                            PasswordHash = "yY4+k3fnclUrUA8ysvvdyAuKGKeO83FssRuLKzchPTXVSAdkDUlUjeg35KNLgji8BIN2rmYmI41lj1nt0xIvMQ==",
-                            Salt = "75BpWiwIYziitmZ3WyndvA==",
+                            Password = "3Ulzjmp0BEqfFdMVWLeT4Cwjbwm5droQwfnaUt1RUe1RRNlDvlke7RZaJt2u1P+fWx6pYN0RJPQATyVawd+nCg==",
+                            Salt = "qCPHaoomeuz4mfJsa1vB9g==",
                             UserRoleId = 1
                         });
                 });

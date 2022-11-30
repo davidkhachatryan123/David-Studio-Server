@@ -2,6 +2,7 @@
 using David_Studio_Server.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace David_Studio_Server.Migrations
 {
     [DbContext(typeof(davidstudioContext))]
-    partial class davidstudioContextModelSnapshot : ModelSnapshot
+    [Migration("20221130143956_AddedInitialData")]
+    partial class AddedInitialData
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,7 +35,7 @@ namespace David_Studio_Server.Migrations
                         .HasMaxLength(16)
                         .HasColumnType("VARCHAR(16)");
 
-                    b.Property<string>("PasswordHash")
+                    b.Property<string>("Password")
                         .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("VARCHAR(256)");
@@ -43,15 +45,12 @@ namespace David_Studio_Server.Migrations
                         .HasMaxLength(32)
                         .HasColumnType("VARCHAR(32)");
 
-                    b.Property<int>("UserRoleId")
+                    b.Property<int>("UserGroupId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Login")
-                        .IsUnique();
-
-                    b.HasIndex("UserRoleId");
+                    b.HasIndex("UserGroupId");
 
                     b.ToTable("Users", (string)null);
 
@@ -60,13 +59,13 @@ namespace David_Studio_Server.Migrations
                         {
                             Id = 1,
                             Login = "admin",
-                            PasswordHash = "yY4+k3fnclUrUA8ysvvdyAuKGKeO83FssRuLKzchPTXVSAdkDUlUjeg35KNLgji8BIN2rmYmI41lj1nt0xIvMQ==",
-                            Salt = "75BpWiwIYziitmZ3WyndvA==",
-                            UserRoleId = 1
+                            Password = "F/B90B3N67iXfVyq7PMASMITXZ0A0BvZvw4yjVRAviB18L8S4AP5oXRnaMjDIqxWTXPWlPudqIw8Oo/f7P3WAQ==",
+                            Salt = "KxwIM++7ItIVOBjb/i9tFA==",
+                            UserGroupId = 1
                         });
                 });
 
-            modelBuilder.Entity("David_Studio_Server.Database.Models.Authentication.UserRole", b =>
+            modelBuilder.Entity("David_Studio_Server.Database.Models.Authentication.UserGroup", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -80,10 +79,7 @@ namespace David_Studio_Server.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Role")
-                        .IsUnique();
-
-                    b.ToTable("UserRoles", (string)null);
+                    b.ToTable("UserGroups", (string)null);
 
                     b.HasData(
                         new
@@ -95,16 +91,16 @@ namespace David_Studio_Server.Migrations
 
             modelBuilder.Entity("David_Studio_Server.Database.Models.Authentication.User", b =>
                 {
-                    b.HasOne("David_Studio_Server.Database.Models.Authentication.UserRole", "UserRole")
+                    b.HasOne("David_Studio_Server.Database.Models.Authentication.UserGroup", "UserGroup")
                         .WithMany("Users")
-                        .HasForeignKey("UserRoleId")
+                        .HasForeignKey("UserGroupId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("UserRole");
+                    b.Navigation("UserGroup");
                 });
 
-            modelBuilder.Entity("David_Studio_Server.Database.Models.Authentication.UserRole", b =>
+            modelBuilder.Entity("David_Studio_Server.Database.Models.Authentication.UserGroup", b =>
                 {
                     b.Navigation("Users");
                 });

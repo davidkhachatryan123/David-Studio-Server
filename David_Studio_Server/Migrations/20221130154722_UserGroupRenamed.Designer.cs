@@ -2,6 +2,7 @@
 using David_Studio_Server.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace David_Studio_Server.Migrations
 {
     [DbContext(typeof(davidstudioContext))]
-    partial class davidstudioContextModelSnapshot : ModelSnapshot
+    [Migration("20221130154722_UserGroupRenamed")]
+    partial class UserGroupRenamed
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,7 +35,7 @@ namespace David_Studio_Server.Migrations
                         .HasMaxLength(16)
                         .HasColumnType("VARCHAR(16)");
 
-                    b.Property<string>("PasswordHash")
+                    b.Property<string>("Password")
                         .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("VARCHAR(256)");
@@ -48,9 +50,6 @@ namespace David_Studio_Server.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Login")
-                        .IsUnique();
-
                     b.HasIndex("UserRoleId");
 
                     b.ToTable("Users", (string)null);
@@ -60,8 +59,8 @@ namespace David_Studio_Server.Migrations
                         {
                             Id = 1,
                             Login = "admin",
-                            PasswordHash = "yY4+k3fnclUrUA8ysvvdyAuKGKeO83FssRuLKzchPTXVSAdkDUlUjeg35KNLgji8BIN2rmYmI41lj1nt0xIvMQ==",
-                            Salt = "75BpWiwIYziitmZ3WyndvA==",
+                            Password = "7gM4JDBOD1RfxcFK1xQueIhCINMI+TSym6Cnc+8Lx5uxW7CnOuNmb3T+N9ERVwNyf2iUv8ZM48SKrvukBPS4XA==",
+                            Salt = "5+s3Cy+4Aw1iP+UEfFx9YQ==",
                             UserRoleId = 1
                         });
                 });
@@ -79,9 +78,6 @@ namespace David_Studio_Server.Migrations
                         .HasColumnType("VARCHAR(16)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Role")
-                        .IsUnique();
 
                     b.ToTable("UserRoles", (string)null);
 
