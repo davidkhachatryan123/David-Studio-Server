@@ -115,7 +115,7 @@ namespace David_Studio_Server.Controllers.Admin
 
         [Route("Login")]
         [HttpPost]
-        public async Task<IResult> LoginOneStep([FromBody] UserModel userModel)
+        public async Task<ResponseModel> LoginOneStep([FromBody] UserModel userModel)
         {
             if (ModelState.IsValid)
             {
@@ -129,28 +129,28 @@ namespace David_Studio_Server.Controllers.Admin
                     {
                         await SendTwoFactorTokenAsync(user.Email);
 
-                        return Results.Json(new { message = "Two factor authentication code sended to Email: " + user.Email });
+                        return new ResponseModel("Two factor authentication code sended to Email: " + user.Email, StatusCodes.Status200OK);
                     }
                 }
             }
 
-            return Results.Unauthorized();
+            return new ResponseModel("User authentication error!", StatusCodes.Status401Unauthorized);
         }
 
         [Route("LoginTwoFactor")]
         [HttpPost]
-        public async Task<IResult> LoginTwoStep(TwoFactorModel twoFactor)
+        public async Task<ResponseModel> LoginTwoStep(TwoFactorModel twoFactor)
         {
             if (ModelState.IsValid)
             {
                 var result = await _signInManager.TwoFactorSignInAsync("Email", twoFactor.TwoFactorCode, false, false);
 
                 if (result.Succeeded)
-                    return Results.Ok();
+                    return new ResponseModel("User successffuly authenticated!", StatusCodes.Status200OK);
             }
 
 
-            return Results.Unauthorized();
+            return new ResponseModel("User authentication error!", StatusCodes.Status401Unauthorized);
         }
 
 
