@@ -1,6 +1,6 @@
 using David_Studio_Server.Database;
+using David_Studio_Server.Database.Models.Authentication;
 using David_Studio_Server.Services;
-using David_Studio_Server.Services.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -39,23 +39,36 @@ builder.Services.AddAuthentication(options =>
 });
 builder.Services.AddAuthorization();
 
-builder.Services.Configure<IdentityOptions>(opts =>
-{
-    opts.Lockout.AllowedForNewUsers = true;
-    opts.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(1);
-    opts.Lockout.MaxFailedAccessAttempts = 3;
-});
-
-
-builder.Services.AddSingleton<ICryptography, Cryptography>();
 
 string connection = builder.Configuration.GetConnectionString("DefaultConnection");
 var serverVersion = new MySqlServerVersion(new Version(8, 0, 31));
 
-builder.Services.AddDbContext<davidstudioContext>(options => options.UseMySql(connection, serverVersion));
+builder.Services.AddDbContext<DavidStudioContext>(options => options.UseMySql(connection, serverVersion));
 
 builder.Services.AddScoped<IDavidStudioDataProvider, DavidStudioDataProvider>();
-builder.Services.AddScoped<IUserAuthentication, UserAuthentication>();
+
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<DavidStudioContext>().AddDefaultTokenProviders();
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    // Password settings.
+    options.Password.RequireDigit = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireNonAlphanumeric = true;
+    options.Password.RequireUppercase = true;
+    options.Password.RequiredLength = 8;
+    options.Password.RequiredUniqueChars = 1;
+
+    // Lockout settings.
+    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(60);
+    options.Lockout.MaxFailedAccessAttempts = 3;
+    options.Lockout.AllowedForNewUsers = true;
+
+    // User settings.
+    options.User.AllowedUserNameCharacters =
+    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@$!%*?&=#";
+    options.User.RequireUniqueEmail = true;
+});
+
 
 builder.Services.AddControllers();
 
