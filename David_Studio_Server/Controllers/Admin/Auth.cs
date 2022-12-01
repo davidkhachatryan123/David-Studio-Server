@@ -47,7 +47,7 @@ namespace David_Studio_Server.Controllers.Admin
 
         [Route("Setup")]
         [HttpPost]
-        public async Task<IResult> Setup([FromBody] RegisterModel registerModel)
+        public async Task<ResponseModel> Setup([FromBody] RegisterModel registerModel)
         {
             if (!_userManager.Users.Any())
             {
@@ -73,14 +73,14 @@ namespace David_Studio_Server.Controllers.Admin
                     bool emailResponse = _email.SendEmail(user.Email, confirmationLink!);
 
                     if (emailResponse)
-                        return Results.Ok();
+                        return new ResponseModel("Confirmation link sended, to your email. Please check your email!", StatusCodes.Status200OK);
                 }
 
 
-                return Results.StatusCode(StatusCodes.Status500InternalServerError);
+                return new ResponseModel("Internal server error, please try again later!", StatusCodes.Status500InternalServerError);
             }
 
-            return Results.StatusCode(StatusCodes.Status405MethodNotAllowed);
+            return new ResponseModel("Root user are registered", StatusCodes.Status405MethodNotAllowed);
         }
 
         [Route("IsSetup")]
