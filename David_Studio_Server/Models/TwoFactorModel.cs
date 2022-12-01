@@ -2,9 +2,9 @@
 
 namespace David_Studio_Server.Models
 {
-    public class RegisterModel : UserModel
+    public class TwoFactorModel
     {
         [Required]
-        public string Email { get; set; } = null!;
+        public string TwoFactorCode { get; set; } = null!;
     }
 }

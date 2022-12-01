@@ -13,30 +13,13 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy(
         name: "AllowOrigin",
-        builder => {
+        builder =>
+        {
             builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
         });
 });
 
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(o =>
-{
-    o.TokenValidationParameters = new TokenValidationParameters
-    {
-        ValidIssuer = builder.Configuration["JWT:Issuer"],
-        ValidAudience = builder.Configuration["JWT:Audience"],
-        IssuerSigningKey = new SymmetricSecurityKey
-        (Encoding.UTF8.GetBytes(builder.Configuration["JWT:Key"])),
-        ValidateIssuer = true,
-        ValidateAudience = true,
-        ValidateLifetime = false,
-        ValidateIssuerSigningKey = true
-    };
-});
+builder.Services.AddAuthentication();
 builder.Services.AddAuthorization();
 
 
@@ -68,6 +51,8 @@ builder.Services.Configure<IdentityOptions>(options =>
     "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@$!%*?&=#";
     options.User.RequireUniqueEmail = true;
 });
+
+builder.Services.AddSingleton<IEmail, Email>();
 
 
 builder.Services.AddControllers();

@@ -1,5 +1,6 @@
 ﻿using David_Studio_Server.Database.Models.Authentication;
 using David_Studio_Server.Models;
+using David_Studio_Server.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -7,6 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Xml.Linq;
 
 namespace David_Studio_Server.Controllers.Admin
 {
@@ -15,94 +17,146 @@ namespace David_Studio_Server.Controllers.Admin
     public class Auth : ControllerBase
     {
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+
         private readonly IConfiguration _configuration;
+        private readonly IEmail _email;
 
         public Auth(
             UserManager<ApplicationUser> userManager,
+            RoleManager<IdentityRole> roleManager,
             SignInManager<ApplicationUser> signInManager,
-            IConfiguration configuration)
+            IConfiguration configuration,
+            IEmail email)
         {
             _userManager = userManager;
+            _roleManager = roleManager;
             _signInManager = signInManager;
             _configuration = configuration;
+            _email = email;
         }
 
         [Authorize(Roles = UserRoles.Admin)]
-        [Route("test")]
-        [HttpPost]
-        public IResult Test()
+        [Route("Test")]
+        [HttpGet]
+        public string Test()
         {
-            return Results.Ok("Hello World!");
+            return "Hello World!";
         }
 
-        [Route("setup")]
+        [Route("Setup")]
         [HttpPost]
         public async Task<IResult> Setup([FromBody] RegisterModel registerModel)
         {
             if (!_userManager.Users.Any())
             {
-                var result = await _userManager.CreateAsync(new ApplicationUser()
+                ApplicationUser user = new ApplicationUser()
                 {
                     UserName = registerModel.Username,
-                    Email = registerModel.Email
-                }, registerModel.Password);
+                    Email = registerModel.Email,
+                    TwoFactorEnabled = true
+                };
 
-                if (!result.Succeeded)
-                    return Results.StatusCode(StatusCodes.Status500InternalServerError);
+                var result = await _userManager.CreateAsync(user, registerModel.Password);
 
-                return Results.Ok();
+                result = await _roleManager.CreateAsync(new IdentityRole(UserRoles.Admin));
+                result = await _roleManager.CreateAsync(new IdentityRole(UserRoles.Manager));
+
+                result = await _userManager.AddToRoleAsync(user, UserRoles.Admin);
+
+                if (result.Succeeded)
+                {
+                    var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    var confirmationLink = Url.Action("ConfirmEmail", nameof(Auth), new { token, email = user.Email }, Request.Scheme);
+
+                    bool emailResponse = _email.SendEmail(user.Email, confirmationLink!);
+
+                    if (emailResponse)
+                        return Results.Ok();
+                }
+
+
+                return Results.StatusCode(StatusCodes.Status500InternalServerError);
             }
 
             return Results.StatusCode(StatusCodes.Status405MethodNotAllowed);
         }
 
-        [Route("login")]
+        [Route("IsSetup")]
+        [HttpGet]
+        public IResult IsSetup()
+        {
+            if (_userManager.Users.Any())
+                return Results.Json("false");
+
+            return Results.Json("true");
+        }
+
+        [Route("ConfirmEmail")]
+        [HttpGet]
+        public async Task<IResult> ConfirmEmail(string token, string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+
+            if (user != null)
+            {
+                var result = await _userManager.ConfirmEmailAsync(user, token);
+
+                if (result.Succeeded)
+                    return Results.Ok();
+            }
+
+            return Results.Unauthorized();
+        }
+
+        [Route("Login")]
         [HttpPost]
-        public async Task<IResult> Login([FromBody] UserModel userModel)
+        public async Task<IResult> LoginOneStep([FromBody] UserModel userModel)
         {
             if (ModelState.IsValid)
             {
                 ApplicationUser? user = await _userManager.FindByNameAsync(userModel.Username);
 
-                var res = await _signInManager.CheckPasswordSignInAsync(user!, userModel.Password, true);
-
-                if (user != null && res.Succeeded)
+                if (user != null)
                 {
-                    var userRoles = await _userManager.GetRolesAsync(user);
+                    var result = await _signInManager.PasswordSignInAsync(user, userModel.Password, false, false);
 
-                    List<Claim> authClaims = new List<Claim>();
-
-                    foreach (var userRole in userRoles)
+                    if (result.RequiresTwoFactor)
                     {
-                        authClaims.Add(new Claim(ClaimTypes.Role, userRole));
+                        await SendTwoFactorTokenAsync(user.Email);
+
+                        return Results.Json(new { message = "Two factor authentication code sended to Email: " + user.Email });
                     }
-
-                    var token = GetToken(authClaims);
-
-                    return Results.Ok(new
-                    {
-                        token = new JwtSecurityTokenHandler().WriteToken(token)
-                    });
                 }
             }
 
             return Results.Unauthorized();
         }
 
-        private JwtSecurityToken GetToken(List<Claim> authClaims)
+        [Route("LoginTwoFactor")]
+        [HttpPost]
+        public async Task<IResult> LoginTwoStep(TwoFactorModel twoFactor)
         {
-            var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Key"]));
+            if (ModelState.IsValid)
+            {
+                var result = await _signInManager.TwoFactorSignInAsync("Email", twoFactor.TwoFactorCode, false, false);
 
-            var token = new JwtSecurityToken(
-                issuer: _configuration["JWT:Issuer"],
-                audience: _configuration["JWT:Audience"],
-                expires: DateTime.Now.AddMinutes(Convert.ToInt32(_configuration["JWT:LifeTimeInMinutes"])),
-                claims: authClaims,
-                signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha512)
-                );
+                if (result.Succeeded)
+                    return Results.Ok();
+            }
 
-            return token;
+
+            return Results.Unauthorized();
+        }
+
+
+        private async Task<bool> SendTwoFactorTokenAsync(string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            var token = await _userManager.GenerateTwoFactorTokenAsync(user, "Email");
+
+            return _email.SendEmail(user.Email, token);
         }
     }
 }
