@@ -69,11 +69,12 @@ namespace David_Studio_Server.Controllers.Admin
                 {
                     var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     var confirmationLink = Url.Action("ConfirmEmail", nameof(Auth), new { token, email = user.Email }, Request.Scheme);
+                    var emailBody = _email.GetEmailConfirmationPage(confirmationLink!);
 
-                    bool emailResponse = _email.SendEmail(user.Email, confirmationLink!);
+                    bool emailResponse = _email.SendEmail(user.Email, "David Studio - Email Confirmation", emailBody);
 
                     if (emailResponse)
-                        return new ResponseModel("Confirmation link sended, to your email. Please check your email!", StatusCodes.Status200OK);
+                        return new ResponseModel("Confirmation link sended, to your email. Please check your inbox!", StatusCodes.Status200OK);
                 }
 
 
@@ -95,7 +96,7 @@ namespace David_Studio_Server.Controllers.Admin
 
         [Route("ConfirmEmail")]
         [HttpGet]
-        public async Task<IResult> ConfirmEmail(string token, string email)
+        public async Task<ContentResult> ConfirmEmail(string token, string email)
         {
             var user = await _userManager.FindByEmailAsync(email);
 
@@ -104,10 +105,12 @@ namespace David_Studio_Server.Controllers.Admin
                 var result = await _userManager.ConfirmEmailAsync(user, token);
 
                 if (result.Succeeded)
-                    return Results.Ok();
+                {
+                    return base.Content(_email.RedirectToLogin(_configuration["Client:Login"]), "text/html");
+                }
             }
 
-            return Results.Unauthorized();
+            return base.Content("Error: " + StatusCodes.Status401Unauthorized);
         }
 
         [Route("Login")]
@@ -155,8 +158,9 @@ namespace David_Studio_Server.Controllers.Admin
         {
             var user = await _userManager.FindByEmailAsync(email);
             var token = await _userManager.GenerateTwoFactorTokenAsync(user, "Email");
+            var content = _email.Get2FAEmailBody(token);
 
-            return _email.SendEmail(user.Email, token);
+            return _email.SendEmail(user.Email, "David Studio - Two Factor 6 digits Code", content);
         }
     }
 }
