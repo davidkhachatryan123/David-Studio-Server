@@ -39,7 +39,7 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.Password.RequiredUniqueChars = 1;
 
     // SignIn settings.
-    options.SignIn.RequireConfirmedEmail= true;
+    options.SignIn.RequireConfirmedEmail = true;
 
     // Lockout settings.
     options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(60);
@@ -70,7 +70,10 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors("AllowOrigin");
 
-app.UseHttpsRedirection();
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHttpsRedirection();
+}
 
 app.UseAuthentication();
 app.UseAuthorization();

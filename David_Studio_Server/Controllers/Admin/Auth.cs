@@ -35,9 +35,9 @@ namespace David_Studio_Server.Controllers.Admin
         [Authorize(Roles = UserRoles.Admin)]
         [Route("Test")]
         [HttpGet]
-        public string Test()
+        public ResponseModel Test()
         {
-            return "Hello World!";
+            return new ResponseModel("Hello World!", StatusCodes.Status200OK);
         }
 
         [Route("Setup")]
