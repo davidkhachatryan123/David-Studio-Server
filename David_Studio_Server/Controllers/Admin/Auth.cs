@@ -40,6 +40,20 @@ namespace David_Studio_Server.Controllers.Admin
             return new ResponseModel("Hello World!", StatusCodes.Status200OK);
         }
 
+        [Route("IsSetup")]
+        [HttpGet]
+        public bool IsSetup()
+        {
+            return !_userManager.Users.Any();
+        }
+
+        [Route("IsLoggedIn")]
+        [HttpGet]
+        public bool IsLoggedIn()
+        {
+            return HttpContext.Request.Cookies.ContainsKey(".AspNetCore.Identity.Application");
+        }
+
         [Route("Setup")]
         [HttpPost]
         public async Task<ResponseModel> Setup([FromBody] RegisterModel registerModel)
@@ -77,20 +91,6 @@ namespace David_Studio_Server.Controllers.Admin
             }
 
             return new ResponseModel("Root user are registered", StatusCodes.Status405MethodNotAllowed);
-        }
-
-        [Route("IsSetup")]
-        [HttpGet]
-        public bool IsSetup()
-        {
-            return !_userManager.Users.Any();
-        }
-
-        [Route("IsLoggedIn")]
-        [HttpGet]
-        public bool IsLoggedIn()
-        {
-            return HttpContext.Request.Cookies.ContainsKey(".AspNetCore.Identity.Application");
         }
 
         [Route("ConfirmEmail")]
