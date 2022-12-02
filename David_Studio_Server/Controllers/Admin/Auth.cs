@@ -81,12 +81,16 @@ namespace David_Studio_Server.Controllers.Admin
 
         [Route("IsSetup")]
         [HttpGet]
-        public IResult IsSetup()
+        public bool IsSetup()
         {
-            if (_userManager.Users.Any())
-                return Results.Json("false");
+            return !_userManager.Users.Any();
+        }
 
-            return Results.Json("true");
+        [Route("IsLoggedIn")]
+        [HttpGet]
+        public bool IsLoggedIn()
+        {
+            return HttpContext.Request.Cookies.ContainsKey(".AspNetCore.Identity.Application");
         }
 
         [Route("ConfirmEmail")]
