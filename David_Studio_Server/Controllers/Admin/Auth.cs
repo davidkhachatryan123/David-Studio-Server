@@ -152,6 +152,15 @@ namespace David_Studio_Server.Controllers.Admin
             return new ResponseModel("User authentication error!", StatusCodes.Status401Unauthorized);
         }
 
+        [Route("SingOut")]
+        [HttpGet]
+        public async Task<IResult> SignOut()
+        {
+            await _signInManager.SignOutAsync();
+
+            return Results.Ok();
+        }
+
 
         private async Task<bool> SendTwoFactorTokenAsync(string email)
         {
