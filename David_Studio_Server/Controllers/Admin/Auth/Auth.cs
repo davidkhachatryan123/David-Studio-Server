@@ -1,11 +1,12 @@
 ﻿using David_Studio_Server.Database.Models.Authentication;
 using David_Studio_Server.Models;
+using David_Studio_Server.Models.Auth;
 using David_Studio_Server.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace David_Studio_Server.Controllers.Admin
+namespace David_Studio_Server.Controllers.Admin.Auth
 {
     [Route("api/admin/[controller]")]
     [ApiController]
@@ -32,13 +33,21 @@ namespace David_Studio_Server.Controllers.Admin
             _email = email;
         }
 
-        [Authorize(Roles = UserRoles.Admin)]
-        [Route("Test")]
+        [Authorize]
+        [Route("GetUser")]
         [HttpGet]
-        public ResponseModel Test()
+        public async Task<ClientUserModel> GetUser()
         {
-            return new ResponseModel("Hello World!", StatusCodes.Status200OK);
+            var result = await _userManager.GetUserAsync(User);
+
+            return new ClientUserModel()
+            {
+                UserName = result.UserName,
+                Email = result.Email,
+                PhoneNumber = result.PhoneNumber,
+            };
         }
+
 
         [Route("IsSetup")]
         [HttpGet]
@@ -54,9 +63,10 @@ namespace David_Studio_Server.Controllers.Admin
             return HttpContext.Request.Cookies.ContainsKey(".AspNetCore.Identity.Application");
         }
 
+
         [Route("Setup")]
         [HttpPost]
-        public async Task<ResponseModel> Setup([FromBody] RegisterModel registerModel)
+        public async Task<ResponseModel> Setup([FromBody] SetupModel registerModel)
         {
             if (!_userManager.Users.Any())
             {
@@ -152,7 +162,8 @@ namespace David_Studio_Server.Controllers.Admin
             return new ResponseModel("User authentication error!", StatusCodes.Status401Unauthorized);
         }
 
-        [Route("SingOut")]
+        [Authorize]
+        [Route("SignOut")]
         [HttpGet]
         public async Task<IResult> SignOut()
         {
