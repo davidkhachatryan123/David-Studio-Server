@@ -28,13 +28,13 @@ namespace David_Studio_Server.Controllers.Admin.Dashboard.Users
         Func<User, Object> orderByFunc = null!;
 
         [HttpGet]
-        public async Task<IEnumerable<User>> Get(
+        public async Task<UsersResponse> Get(
             [FromQuery] string Sort,
             [FromQuery] string OrderDirection,
             [FromQuery] int Page,
             [FromQuery] int PageSize)
         {
-            switch (Sort)
+            switch (Sort.ToLower())
             {
                 case UsersSort.Id:
                     orderByFunc = x => x.Id;
@@ -71,7 +71,7 @@ namespace David_Studio_Server.Controllers.Admin.Dashboard.Users
             IEnumerable<User> result =
                 OrderDirection == "asc" ? users.OrderBy(orderByFunc) : users.OrderByDescending(orderByFunc);
 
-            return result;
+            return new UsersResponse(result, await _userManager.Users.CountAsync());
         }
     }
 }
