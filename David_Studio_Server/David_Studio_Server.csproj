@@ -27,7 +27,8 @@
     <Folder Include="Controllers\Admin\Dashboard\UIElements\" />
     <Folder Include="Database\ModelConfigrations\" />
     <Folder Include="Migrations\" />
-    <Folder Include="Models\Dashboard\" />
+    <Folder Include="Models\Dashboard\Main\" />
+    <Folder Include="Models\Dashboard\UIElements\" />
     <Folder Include="wwwroot\uploads\images\" />
   </ItemGroup>
 
