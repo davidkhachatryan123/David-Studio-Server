@@ -91,7 +91,7 @@ namespace David_Studio_Server.Controllers.Admin.Dashboard.Users
             {
                 UserName = newUser.Username,
                 Email = newUser.Email,
-                PhoneNumber = newUser.Phone,
+                PhoneNumber = newUser.PhoneNumber,
                 TwoFactorEnabled = true
             };
 
@@ -131,8 +131,8 @@ namespace David_Studio_Server.Controllers.Admin.Dashboard.Users
                     appUser.Email = updateUser.Email;
                     appUser.EmailConfirmed = false;
                 }
-                if (!string.IsNullOrEmpty(updateUser.Phone))
-                    appUser.PhoneNumber = updateUser.Phone;
+                if (!string.IsNullOrEmpty(updateUser.PhoneNumber))
+                    appUser.PhoneNumber = updateUser.PhoneNumber;
                 if (!string.IsNullOrEmpty(updateUser.Role))
                 {
                     await _userManager.RemoveFromRolesAsync(appUser, await _userManager.GetRolesAsync(appUser));
