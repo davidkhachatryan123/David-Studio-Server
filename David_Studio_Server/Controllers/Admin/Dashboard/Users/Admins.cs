@@ -17,28 +17,28 @@ namespace David_Studio_Server.Controllers.Admin.Dashboard.Users
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private IPasswordHasher<ApplicationUser> _passwordHasher;
+
         private readonly IEmail _email;
 
         public Admins(
             UserManager<ApplicationUser> userManager,
             RoleManager<IdentityRole> roleManager,
+            IPasswordHasher<ApplicationUser> passwordHasher,
             IEmail email)
         {
             _userManager = userManager;
             _roleManager = roleManager;
+            _passwordHasher = passwordHasher;
             _email = email;
         }
 
         Func<User, Object> orderByFunc = null!;
 
         [HttpGet]
-        public async Task<UsersResponse> Get(
-            [FromQuery] string Sort,
-            [FromQuery] string OrderDirection,
-            [FromQuery] int Page,
-            [FromQuery] int PageSize)
+        public async Task<UsersResponse> Get([FromQuery] UserListOptions options)
         {
-            switch (Sort.ToLower())
+            switch (options.Sort.ToLower())
             {
                 case UsersSort.Id:
                     orderByFunc = x => x.Id;
@@ -61,8 +61,8 @@ namespace David_Studio_Server.Controllers.Admin.Dashboard.Users
 
             IEnumerable<ApplicationUser> AppUsers =
                 await _userManager.Users
-                .Skip((Page - 1) * PageSize)
-                .Take(PageSize)
+                .Skip((options.Page - 1) * options.PageSize)
+                .Take(options.PageSize)
                 .ToArrayAsync();
 
             foreach (ApplicationUser AppUser in AppUsers)
@@ -73,7 +73,7 @@ namespace David_Studio_Server.Controllers.Admin.Dashboard.Users
             }
 
             IEnumerable<User> result =
-                OrderDirection == "asc" ? users.OrderBy(orderByFunc) : users.OrderByDescending(orderByFunc);
+                options.OrderDirection == "asc" ? users.OrderBy(orderByFunc) : users.OrderByDescending(orderByFunc);
 
             return new UsersResponse(result, await _userManager.Users.CountAsync());
         }
@@ -95,17 +95,87 @@ namespace David_Studio_Server.Controllers.Admin.Dashboard.Users
 
             if (result.Succeeded)
             {
-                var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                var confirmationLink = Url.Action("ConfirmEmail", nameof(Auth), new { token, email = user.Email }, Request.Scheme);
-                var emailBody = _email.GetEmailConfirmationPage(confirmationLink!);
+                bool sended = await _email.SendConfirmEmailAsync(user);
 
-                bool emailResponse = _email.SendEmail(user.Email, "David Studio - Email Confirmation", emailBody);
-
-                if (emailResponse)
-                    return new ResponseModel($"Confirmation link sended, to {user.Email}. Please ask to check mailbox!", StatusCodes.Status200OK);
+                if (sended)
+                    return new ResponseModel(
+                        $"Confirmation link sended, to {user.Email}. Please ask to check mailbox!",
+                        StatusCodes.Status200OK);
             }
 
             return new ResponseModel("Internal server error, please try again later!", StatusCodes.Status500InternalServerError);
+        }
+
+        [HttpPut]
+        public async Task<ResponseModel> Put([FromBody] NewUser updateUser)
+        {
+            ApplicationUser appUser = await _userManager.FindByIdAsync(updateUser.Id);
+
+            if (appUser != null)
+            {
+                if (!string.IsNullOrEmpty(updateUser.Username))
+                    appUser.UserName = updateUser.Username;
+                if (!string.IsNullOrEmpty(updateUser.Password))
+                    appUser.PasswordHash = _passwordHasher.HashPassword(appUser, updateUser.Password);
+                if (!string.IsNullOrEmpty(updateUser.Email))
+                {
+                    appUser.Email = updateUser.Email;
+                    appUser.EmailConfirmed = false;
+                }
+                if (!string.IsNullOrEmpty(updateUser.Phone))
+                    appUser.PhoneNumber = updateUser.Phone;
+                if (!string.IsNullOrEmpty(updateUser.Role))
+                {
+                    await _userManager.RemoveFromRolesAsync(appUser, await _userManager.GetRolesAsync(appUser));
+                    await _userManager.AddToRoleAsync(appUser, updateUser.Role);
+                }
+
+                var result = await _userManager.UpdateAsync(appUser);
+
+                return ResponseModel.GetResponse(
+                    result.Succeeded,
+                    "User successfully updated!", StatusCodes.Status200OK,
+                    "Internal server error, please try again later!", StatusCodes.Status500InternalServerError);
+            }
+            else
+                return new ResponseModel("User not found!", StatusCodes.Status404NotFound);
+        }
+
+        [HttpDelete]
+        public async Task<ResponseModel> Delete(string Id)
+        {
+            ApplicationUser appUser = await _userManager.FindByIdAsync(Id);
+
+            if (appUser != null)
+            {
+                var result = await _userManager.DeleteAsync(appUser);
+
+                return ResponseModel.GetResponse(
+                    result.Succeeded,
+                    "User successfully deleted!", StatusCodes.Status200OK,
+                    "Internal server error, please try again later!", StatusCodes.Status500InternalServerError);
+            }
+            else
+                return new ResponseModel("User not found!", StatusCodes.Status404NotFound);
+        }
+
+        [HttpGet]
+        [Route("SendConfirmEmail")]
+        public async Task<ResponseModel> SendConfirmEmail(string Email)
+        {
+            var user = await _userManager.FindByEmailAsync(Email);
+
+            if (user != null)
+            {
+                var result = await _email.SendConfirmEmailAsync(user);
+
+                return ResponseModel.GetResponse(
+                    result,
+                    "Confirmation link sended, to your email. Please check your inbox!", StatusCodes.Status200OK,
+                    "Internal server error, please try again later!", StatusCodes.Status500InternalServerError);
+            }
+            else
+                return new ResponseModel("User not found!", StatusCodes.Status404NotFound);
         }
     }
 }

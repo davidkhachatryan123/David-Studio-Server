@@ -1,11 +1,21 @@
-﻿using System.Net.Mail;
+﻿using David_Studio_Server.Controllers.Admin.Auth;
+using David_Studio_Server.Models.Dashboard.Users;
+using David_Studio_Server.Models;
+using Microsoft.AspNetCore.Identity;
+using System.Net.Mail;
+using System.Security.Policy;
 using System.Text;
+using David_Studio_Server.Database.Models.Authentication;
+using Microsoft.AspNetCore.Mvc.Routing;
+using Microsoft.AspNetCore.Mvc;
 
 namespace David_Studio_Server.Services
 {
     public interface IEmail
     {
         bool SendEmail(string to, string subject, string message);
+
+        Task<bool> SendConfirmEmailAsync(ApplicationUser user);
 
         string GetEmailConfirmationPage(string confirmationLink);
         string RedirectToLogin(string loginUrl);
@@ -16,10 +26,17 @@ namespace David_Studio_Server.Services
     public class Email : IEmail
     {
         private readonly ILogger<Email> _logger;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly UrlHelper _urlHelper;
 
-        public Email(ILogger<Email> logger)
+        public Email(
+            ILogger<Email> logger,
+            UserManager<ApplicationUser> userManager,
+            UrlHelper urlHelper)
         {
             _logger = logger;
+            _userManager = userManager;
+            _urlHelper = urlHelper;
         }
 
         public bool SendEmail(string to, string subject, string message)
@@ -48,6 +65,18 @@ namespace David_Studio_Server.Services
             return false;
         }
 
+        public async Task<bool> SendConfirmEmailAsync(ApplicationUser user)
+        {
+            var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+
+            var confirmationLink = _urlHelper.Action("ConfirmEmail", nameof(Auth), new { token, email = user.Email });
+            var emailBody = GetEmailConfirmationPage(confirmationLink!);
+
+            bool emailResponse = SendEmail(user.Email, "David Studio - Email Confirmation", emailBody);
+
+            return emailResponse;
+        }
+
         public string GetEmailConfirmationPage(string confirmationLink)
         {
             var content = File.ReadAllText(@"assets/EmailConfirm.html");
@@ -68,7 +97,6 @@ namespace David_Studio_Server.Services
         {
             var content = File.ReadAllText(@"assets/2FACode.html");
             content = content.Replace("{{token}}", token.Insert(3, " - "));
-
             return content;
         }
     }

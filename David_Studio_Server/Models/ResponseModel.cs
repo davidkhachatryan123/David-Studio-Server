@@ -10,5 +10,16 @@
 
         public string Message { get; set; } = null!;
         public int StatusCode { get; set; }
+
+        public static ResponseModel GetResponse(
+            bool IsSuccess,
+            string OnSuccessMsg, int OnSuccessCode,
+            string OnErrorMessage, int OnErrorCode)
+        {
+            if (IsSuccess)
+                return new ResponseModel(OnSuccessMsg, OnSuccessCode);
+            else
+                return new ResponseModel(OnErrorMessage, OnErrorCode);
+        }
     }
 }

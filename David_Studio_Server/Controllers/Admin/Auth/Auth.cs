@@ -86,14 +86,12 @@ namespace David_Studio_Server.Controllers.Admin.Auth
 
                 if (result.Succeeded)
                 {
-                    var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    var confirmationLink = Url.Action("ConfirmEmail", nameof(Auth), new { token, email = user.Email }, Request.Scheme);
-                    var emailBody = _email.GetEmailConfirmationPage(confirmationLink!);
+                    bool sended = await _email.SendConfirmEmailAsync(user);
 
-                    bool emailResponse = _email.SendEmail(user.Email, "David Studio - Email Confirmation", emailBody);
-
-                    if (emailResponse)
-                        return new ResponseModel("Confirmation link sended, to your email. Please check your inbox!", StatusCodes.Status200OK);
+                    if (sended)
+                        return new ResponseModel(
+                            "Confirmation link sended, to your email. Please check your inbox!",
+                            StatusCodes.Status200OK);
                 }
 
 
