@@ -49,6 +49,9 @@ namespace David_Studio_Server.Controllers.Admin.Dashboard.Users
                 case UsersSort.Email:
                     orderByFunc = x => x.Email;
                     break;
+                case UsersSort.EmailConfirmed:
+                    orderByFunc = x => x.EmailConfirmed;
+                    break;
                 case UsersSort.Phone:
                     orderByFunc = x => x.Phone;
                     break;
