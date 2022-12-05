@@ -95,7 +95,10 @@ namespace David_Studio_Server.Controllers.Admin.Dashboard.Users
 
             if (result.Succeeded)
             {
-                bool sended = await _email.SendConfirmEmailAsync(user);
+                var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                var confirmationLink = Url.Action("ConfirmEmail", nameof(Auth), new { token, email = user.Email }, Request.Scheme);
+
+                bool sended = await _email.SendConfirmEmailAsync(user, confirmationLink!);
 
                 if (sended)
                     return new ResponseModel(
@@ -167,10 +170,13 @@ namespace David_Studio_Server.Controllers.Admin.Dashboard.Users
 
             if (user != null)
             {
-                var result = await _email.SendConfirmEmailAsync(user);
+                var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                var confirmationLink = Url.Action("ConfirmEmail", nameof(Auth), new { token, email = user.Email }, Request.Scheme);
+
+                bool sended = await _email.SendConfirmEmailAsync(user, confirmationLink!);
 
                 return ResponseModel.GetResponse(
-                    result,
+                    sended,
                     "Confirmation link sended, to your email. Please check your inbox!", StatusCodes.Status200OK,
                     "Internal server error, please try again later!", StatusCodes.Status500InternalServerError);
             }

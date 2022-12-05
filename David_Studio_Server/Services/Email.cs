@@ -15,7 +15,7 @@ namespace David_Studio_Server.Services
     {
         bool SendEmail(string to, string subject, string message);
 
-        Task<bool> SendConfirmEmailAsync(ApplicationUser user);
+        Task<bool> SendConfirmEmailAsync(ApplicationUser user, string confirmationLink);
 
         string GetEmailConfirmationPage(string confirmationLink);
         string RedirectToLogin(string loginUrl);
@@ -27,16 +27,13 @@ namespace David_Studio_Server.Services
     {
         private readonly ILogger<Email> _logger;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly UrlHelper _urlHelper;
 
         public Email(
             ILogger<Email> logger,
-            UserManager<ApplicationUser> userManager,
-            UrlHelper urlHelper)
+            UserManager<ApplicationUser> userManager)
         {
             _logger = logger;
             _userManager = userManager;
-            _urlHelper = urlHelper;
         }
 
         public bool SendEmail(string to, string subject, string message)
@@ -65,11 +62,8 @@ namespace David_Studio_Server.Services
             return false;
         }
 
-        public async Task<bool> SendConfirmEmailAsync(ApplicationUser user)
+        public async Task<bool> SendConfirmEmailAsync(ApplicationUser user, string confirmationLink)
         {
-            var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-
-            var confirmationLink = _urlHelper.Action("ConfirmEmail", nameof(Auth), new { token, email = user.Email });
             var emailBody = GetEmailConfirmationPage(confirmationLink!);
 
             bool emailResponse = SendEmail(user.Email, "David Studio - Email Confirmation", emailBody);

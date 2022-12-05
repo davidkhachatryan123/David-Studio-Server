@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Controllers\Admin\Dashboard\Users\Admins.cs~RF53dec277.TMP" />
     <None Remove="Controllers\Admin\onxj3vsb.ojb~" />
   </ItemGroup>
 

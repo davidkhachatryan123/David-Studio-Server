@@ -52,7 +52,7 @@ builder.Services.Configure<IdentityOptions>(options =>
     options.User.RequireUniqueEmail = true;
 });
 
-builder.Services.AddSingleton<IEmail, Email>();
+builder.Services.AddScoped<IEmail, Email>();
 
 
 builder.Services.AddControllers();
