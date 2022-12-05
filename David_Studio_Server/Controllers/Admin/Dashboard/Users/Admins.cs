@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace David_Studio_Server.Controllers.Admin.Dashboard.Users
 {
@@ -33,7 +34,7 @@ namespace David_Studio_Server.Controllers.Admin.Dashboard.Users
             _email = email;
         }
 
-        Func<User, Object> orderByFunc = null!;
+        Func<ApplicationUser, Object> orderByFunc = null!;
 
         [HttpGet]
         public async Task<UsersResponse> Get([FromQuery] UserListOptions options)
@@ -44,7 +45,7 @@ namespace David_Studio_Server.Controllers.Admin.Dashboard.Users
                     orderByFunc = x => x.Id;
                     break;
                 case UsersSort.Username:
-                    orderByFunc = x => x.Username;
+                    orderByFunc = x => x.UserName;
                     break;
                 case UsersSort.Email:
                     orderByFunc = x => x.Email;
@@ -53,32 +54,34 @@ namespace David_Studio_Server.Controllers.Admin.Dashboard.Users
                     orderByFunc = x => x.EmailConfirmed;
                     break;
                 case UsersSort.Phone:
-                    orderByFunc = x => x.Phone;
-                    break;
-                case UsersSort.Role:
-                    orderByFunc = x => x.Role;
+                    orderByFunc = x => x.PhoneNumber;
                     break;
             }
 
             List<User> users = new List<User>();
 
-            IEnumerable<ApplicationUser> AppUsers =
-                await _userManager.Users
-                .Skip((options.Page - 1) * options.PageSize)
-                .Take(options.PageSize)
-                .ToArrayAsync();
+            IEnumerable<ApplicationUser> AppUsers = _userManager.Users;
+
+            AppUsers = options.OrderDirection == "asc" ?
+                AppUsers.OrderBy(orderByFunc) : AppUsers.OrderByDescending(orderByFunc);
+
+            AppUsers = AppUsers.Skip((options.Page - 1) * options.PageSize)
+                               .Take(options.PageSize);
 
             foreach (ApplicationUser AppUser in AppUsers)
             {
                 var roles = await _userManager.GetRolesAsync(AppUser);
 
-                users.Add(new User(AppUser.Id, AppUser.UserName, AppUser.Email, AppUser.EmailConfirmed, AppUser.PhoneNumber, roles.First()));
+                users.Add(new User(
+                    AppUser.Id,
+                    AppUser.UserName,
+                    AppUser.Email,
+                    AppUser.EmailConfirmed,
+                    AppUser.PhoneNumber,
+                    roles.First()));
             }
 
-            IEnumerable<User> result =
-                options.OrderDirection == "asc" ? users.OrderBy(orderByFunc) : users.OrderByDescending(orderByFunc);
-
-            return new UsersResponse(result, await _userManager.Users.CountAsync());
+            return new UsersResponse(users, await _userManager.Users.CountAsync());
         }
 
         [HttpPost]
