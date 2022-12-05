@@ -25,11 +25,11 @@
 
   <ItemGroup>
     <Folder Include="Controllers\Admin\Dashboard\Main\" />
-    <Folder Include="Controllers\Admin\Dashboard\UIElements\" />
-    <Folder Include="Database\ModelConfigrations\" />
+    <Folder Include="Controllers\Admin\Dashboard\UIElements\Projects\" />
     <Folder Include="Migrations\" />
     <Folder Include="Models\Dashboard\Main\" />
-    <Folder Include="Models\Dashboard\UIElements\" />
+    <Folder Include="Models\Dashboard\UIElements\Projects\" />
+    <Folder Include="Models\Dashboard\UIElements\Services\" />
     <Folder Include="wwwroot\uploads\images\" />
   </ItemGroup>
 

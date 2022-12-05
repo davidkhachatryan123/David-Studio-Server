@@ -1,11 +1,11 @@
 ﻿namespace David_Studio_Server.Models.Dashboard.Users
 {
-    public class UsersResponse
+    public class UsersResponseModel
     {
-        public IEnumerable<User>? Users { get; set; }
+        public IEnumerable<UserModel>? Users { get; set; }
         public int TotalCount { get; set; }
 
-        public UsersResponse(IEnumerable<User>? users, int totalCount)
+        public UsersResponseModel(IEnumerable<UserModel>? users, int totalCount)
         {
             Users = users;
             TotalCount = totalCount;

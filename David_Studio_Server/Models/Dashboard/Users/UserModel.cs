@@ -1,6 +1,6 @@
 ﻿namespace David_Studio_Server.Models.Dashboard.Users
 {
-    public class User
+    public class UserModel
     {
         public string Id { get; set; } = null!;
         public string Username { get; set; } = null!;
@@ -9,7 +9,7 @@
         public string? Phone { get; set; }
         public string Role { get; set; } = null!;
 
-        public User(
+        public UserModel(
             string Id,
             string Username,
             string Email,

@@ -5,9 +5,9 @@ using Microsoft.AspNetCore.Identity;
 using System.Net.Mail;
 using System.Security.Policy;
 using System.Text;
-using David_Studio_Server.Database.Models.Authentication;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Mvc;
+using David_Studio_Server.Database.Models.Authentication;
 
 namespace David_Studio_Server.Services
 {

@@ -37,7 +37,7 @@ namespace David_Studio_Server.Controllers.Admin.Dashboard.Users
         Func<ApplicationUser, Object> orderByFunc = null!;
 
         [HttpGet]
-        public async Task<UsersResponse> Get([FromQuery] UserListOptions options)
+        public async Task<UsersResponseModel> Get([FromQuery] UserListOptions options)
         {
             switch (options.Sort.ToLower())
             {
@@ -58,7 +58,7 @@ namespace David_Studio_Server.Controllers.Admin.Dashboard.Users
                     break;
             }
 
-            List<User> users = new List<User>();
+            List<Models.Dashboard.Users.UserModel> users = new List<Models.Dashboard.Users.UserModel>();
 
             IEnumerable<ApplicationUser> AppUsers = _userManager.Users;
 
@@ -72,20 +72,20 @@ namespace David_Studio_Server.Controllers.Admin.Dashboard.Users
             {
                 var roles = await _userManager.GetRolesAsync(AppUser);
 
-                users.Add(new User(
+                users.Add(new Models.Dashboard.Users.UserModel(
                     AppUser.Id,
                     AppUser.UserName,
                     AppUser.Email,
                     AppUser.EmailConfirmed,
                     AppUser.PhoneNumber,
-                    roles.First()));
+                    roles.First<string>()));
             }
 
-            return new UsersResponse(users, await _userManager.Users.CountAsync());
+            return new UsersResponseModel(users, await _userManager.Users.CountAsync());
         }
 
         [HttpPost]
-        public async Task<ResponseModel> Post([FromBody] NewUser newUser)
+        public async Task<ResponseModel> Post([FromBody] NewUserModel newUser)
         {
             ApplicationUser user = new ApplicationUser()
             {
@@ -116,7 +116,7 @@ namespace David_Studio_Server.Controllers.Admin.Dashboard.Users
         }
 
         [HttpPut]
-        public async Task<ResponseModel> Put([FromBody] NewUser updateUser)
+        public async Task<ResponseModel> Put([FromBody] NewUserModel updateUser)
         {
             ApplicationUser appUser = await _userManager.FindByIdAsync(updateUser.Id);
 
