@@ -25,7 +25,7 @@ var serverVersion = new MySqlServerVersion(new Version(8, 0, 31));
 
 builder.Services.AddDbContext<DavidStudioContext>(options => options.UseMySql(connection, serverVersion));
 
-builder.Services.AddScoped<IDavidStudioDataProvider, DavidStudioDataProvider>();
+builder.Services.AddScoped<IDavidStudioDataProvider, HomeServiceDataProvider>();
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<DavidStudioContext>().AddDefaultTokenProviders();
 builder.Services.Configure<IdentityOptions>(options =>

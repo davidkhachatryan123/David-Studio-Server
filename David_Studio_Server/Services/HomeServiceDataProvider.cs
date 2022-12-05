@@ -1,6 +1,4 @@
 ﻿using David_Studio_Server.Database;
-using Microsoft.EntityFrameworkCore;
-using System.Text.Json;
 
 namespace David_Studio_Server.Services
 {
@@ -9,11 +7,11 @@ namespace David_Studio_Server.Services
         
     }
 
-    public class DavidStudioDataProvider : IDavidStudioDataProvider
+    public class HomeServiceDataProvider : IDavidStudioDataProvider
     {
         private readonly DavidStudioContext _context;
 
-        public DavidStudioDataProvider(DavidStudioContext context)
+        public HomeServiceDataProvider(DavidStudioContext context)
         {
             _context = context;
         }

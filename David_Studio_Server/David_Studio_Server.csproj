@@ -30,7 +30,6 @@
     <Folder Include="Models\Dashboard\Main\" />
     <Folder Include="Models\Dashboard\UIElements\Projects\" />
     <Folder Include="Models\Dashboard\UIElements\Services\" />
-    <Folder Include="wwwroot\uploads\images\" />
   </ItemGroup>
 
 </Project>
