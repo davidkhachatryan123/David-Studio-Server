@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace David_Studio_Server.Controllers.Admin.Dashboard.Main
 {
     [Authorize(Roles = UserRoles.Admin)]
-    [Authorize(Roles = UserRoles.Manager)]
     [Route("api/admin/[controller]")]
     [ApiController]
     public class Files : ControllerBase
@@ -28,7 +27,7 @@ namespace David_Studio_Server.Controllers.Admin.Dashboard.Main
             _uploads = uploads;
         }
 
-        [HttpPost]
+        [HttpPost, DisableRequestSizeLimit]
         public async Task<ResponseModel> Upload(List<IFormFile> files)
         {
             IEnumerable<string> filePaths = await _file.UploadAsync(files, _configuration["FilesStorage:Images"]);
