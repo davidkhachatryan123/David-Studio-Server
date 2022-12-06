@@ -8,7 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace David_Studio_Server.Controllers.Admin.Dashboard.Main
 {
-    [Authorize(Roles = UserRoles.Admin + ", " + UserRoles.Manager)]
+    [Authorize(Roles = UserRoles.Admin)]
+    [Authorize(Roles = UserRoles.Manager)]
     [Route("api/admin/[controller]")]
     [ApiController]
     public class Files : ControllerBase
