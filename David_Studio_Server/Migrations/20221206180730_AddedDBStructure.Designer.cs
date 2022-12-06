@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace David_Studio_Server.Migrations
 {
     [DbContext(typeof(DavidStudioContext))]
-    [Migration("20221205141423_CreatedServiceModels")]
-    partial class CreatedServiceModels
+    [Migration("20221206180730_AddedDBStructure")]
+    partial class AddedDBStructure
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -110,12 +110,15 @@ namespace David_Studio_Server.Migrations
                         .HasMaxLength(1024)
                         .HasColumnType("varchar(1024)");
 
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasMaxLength(1024)
-                        .HasColumnType("varchar(1024)");
+                    b.Property<int>("ImageId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ImgId")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ImageId");
 
                     b.ToTable("Services", (string)null);
                 });
@@ -189,6 +192,28 @@ namespace David_Studio_Server.Migrations
                     b.HasIndex("LanguageId");
 
                     b.ToTable("Translations", (string)null);
+                });
+
+            modelBuilder.Entity("David_Studio_Server.Database.Models.Content.Uploads.Image", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("Id");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(256)
+                        .HasColumnType("varchar(256)");
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasMaxLength(1024)
+                        .HasColumnType("varchar(1024)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Images", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -319,6 +344,17 @@ namespace David_Studio_Server.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("David_Studio_Server.Database.Models.Content.Services.Service", b =>
+                {
+                    b.HasOne("David_Studio_Server.Database.Models.Content.Uploads.Image", "Image")
+                        .WithMany("Services")
+                        .HasForeignKey("ImageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Image");
+                });
+
             modelBuilder.Entity("David_Studio_Server.Database.Models.Content.Services.ServiceTranslation", b =>
                 {
                     b.HasOne("David_Studio_Server.Database.Models.Content.Translation.Translation", "DescriptionTranslation")
@@ -423,6 +459,11 @@ namespace David_Studio_Server.Migrations
                     b.Navigation("ServiceDescriptionTranslations");
 
                     b.Navigation("ServiceTitleTranslations");
+                });
+
+            modelBuilder.Entity("David_Studio_Server.Database.Models.Content.Uploads.Image", b =>
+                {
+                    b.Navigation("Services");
                 });
 #pragma warning restore 612, 618
         }

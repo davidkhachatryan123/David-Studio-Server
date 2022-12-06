@@ -73,7 +73,7 @@ namespace David_Studio_Server.Services
 
         public string GetEmailConfirmationPage(string confirmationLink)
         {
-            var content = File.ReadAllText(@"assets/EmailConfirm.html");
+            var content = System.IO.File.ReadAllText(@"assets/EmailConfirm.html");
             content = content.Replace("{{link}}", confirmationLink);
 
             return content;
@@ -81,7 +81,7 @@ namespace David_Studio_Server.Services
 
         public string RedirectToLogin(string loginUrl)
         {
-            var content = File.ReadAllText(@"assets/RedirectToLogin.html");
+            var content = System.IO.File.ReadAllText(@"assets/RedirectToLogin.html");
             content = content.Replace("{{url}}", loginUrl);
 
             return content;
@@ -89,7 +89,7 @@ namespace David_Studio_Server.Services
 
         public string Get2FAEmailBody(string token)
         {
-            var content = File.ReadAllText(@"assets/2FACode.html");
+            var content = System.IO.File.ReadAllText(@"assets/2FACode.html");
             content = content.Replace("{{token}}", token.Insert(3, " - "));
             return content;
         }

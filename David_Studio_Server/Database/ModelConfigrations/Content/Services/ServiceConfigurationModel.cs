@@ -8,7 +8,6 @@ namespace David_Studio_Server.Database.ModelConfigrations.Content.Services
         protected override void AddBuilder(EntityTypeBuilder<Models.Content.Services.Service> builder)
         {
             builder.Property(x => x.GroupName).HasMaxLength(Configuration.ShortTextLength);
-            builder.Property(x => x.ImageUrl).HasMaxLength(Configuration.LongTextLength);
             builder.Property(x => x.ButtonColor).HasMaxLength(Configuration.TinyTextLength);
             builder.Property(x => x.Href).HasMaxLength(Configuration.LongTextLength);
         }

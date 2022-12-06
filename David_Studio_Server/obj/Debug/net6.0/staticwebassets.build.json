@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "pT0IKa/Ws8aS/93jbfQHQ25QHyqsKK1BtSGid3vvB0A=",
+  "Hash": "27ILMkLP8qiCHGjM7pqc87jui5q66qIj2S5OHr5eQo8=",
   "Source": "David_Studio_Server",
   "BasePath": "_content/David_Studio_Server",
   "Mode": "Default",
@@ -15,74 +15,5 @@
       "Pattern": "**"
     }
   ],
-  "Assets": [
-    {
-      "Identity": "D:\\Programming\\David_Studio_Server\\David_Studio_Server\\wwwroot\\uploads\\images\\services\\arduino_dev.jpg",
-      "SourceId": "David_Studio_Server",
-      "SourceType": "Discovered",
-      "ContentRoot": "D:\\Programming\\David_Studio_Server\\David_Studio_Server\\wwwroot\\",
-      "BasePath": "_content/David_Studio_Server",
-      "RelativePath": "uploads/images/services/arduino_dev.jpg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\uploads\\images\\services\\arduino_dev.jpg"
-    },
-    {
-      "Identity": "D:\\Programming\\David_Studio_Server\\David_Studio_Server\\wwwroot\\uploads\\images\\services\\desktop_dev.jpg",
-      "SourceId": "David_Studio_Server",
-      "SourceType": "Discovered",
-      "ContentRoot": "D:\\Programming\\David_Studio_Server\\David_Studio_Server\\wwwroot\\",
-      "BasePath": "_content/David_Studio_Server",
-      "RelativePath": "uploads/images/services/desktop_dev.jpg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\uploads\\images\\services\\desktop_dev.jpg"
-    },
-    {
-      "Identity": "D:\\Programming\\David_Studio_Server\\David_Studio_Server\\wwwroot\\uploads\\images\\services\\server_dev.jpg",
-      "SourceId": "David_Studio_Server",
-      "SourceType": "Discovered",
-      "ContentRoot": "D:\\Programming\\David_Studio_Server\\David_Studio_Server\\wwwroot\\",
-      "BasePath": "_content/David_Studio_Server",
-      "RelativePath": "uploads/images/services/server_dev.jpg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\uploads\\images\\services\\server_dev.jpg"
-    },
-    {
-      "Identity": "D:\\Programming\\David_Studio_Server\\David_Studio_Server\\wwwroot\\uploads\\images\\services\\web_dev.jpg",
-      "SourceId": "David_Studio_Server",
-      "SourceType": "Discovered",
-      "ContentRoot": "D:\\Programming\\David_Studio_Server\\David_Studio_Server\\wwwroot\\",
-      "BasePath": "_content/David_Studio_Server",
-      "RelativePath": "uploads/images/services/web_dev.jpg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\uploads\\images\\services\\web_dev.jpg"
-    }
-  ]
+  "Assets": []
 }

@@ -1,20 +1,8 @@
 {
   "Files": [
     {
-      "Id": "D:\\Programming\\David_Studio_Server\\David_Studio_Server\\wwwroot\\uploads\\images\\services\\arduino_dev.jpg",
-      "PackagePath": "staticwebassets\\uploads\\images\\services\\arduino_dev.jpg"
-    },
-    {
-      "Id": "D:\\Programming\\David_Studio_Server\\David_Studio_Server\\wwwroot\\uploads\\images\\services\\desktop_dev.jpg",
-      "PackagePath": "staticwebassets\\uploads\\images\\services\\desktop_dev.jpg"
-    },
-    {
-      "Id": "D:\\Programming\\David_Studio_Server\\David_Studio_Server\\wwwroot\\uploads\\images\\services\\server_dev.jpg",
-      "PackagePath": "staticwebassets\\uploads\\images\\services\\server_dev.jpg"
-    },
-    {
-      "Id": "D:\\Programming\\David_Studio_Server\\David_Studio_Server\\wwwroot\\uploads\\images\\services\\web_dev.jpg",
-      "PackagePath": "staticwebassets\\uploads\\images\\services\\web_dev.jpg"
+      "Id": "D:\\Programming\\David_Studio_Server\\David_Studio_Server\\wwwroot\\uploads\\images\\42e49c58-648a-44cd-9e19-a4364900eca6.png",
+      "PackagePath": "staticwebassets\\uploads\\images\\42e49c58-648a-44cd-9e19-a4364900eca6.png"
     },
     {
       "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.David_Studio_Server.Microsoft.AspNetCore.StaticWebAssets.props",

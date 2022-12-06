@@ -2,6 +2,7 @@
 using David_Studio_Server.Database.Models.Authentication;
 using David_Studio_Server.Database.Models.Content.Services;
 using David_Studio_Server.Database.Models.Content.Translation;
+using David_Studio_Server.Database.Models.Content.Uploads;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,6 +15,8 @@ namespace David_Studio_Server.Database
 
         public DbSet<Translation> Translations { get; set; } = null!;
         public DbSet<Language> Languages { get; set; } = null!;
+
+        public DbSet<Image> Images { get; set; } = null!;
 
         public DavidStudioContext(DbContextOptions<DavidStudioContext> options)
             : base(options)
