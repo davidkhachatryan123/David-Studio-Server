@@ -4,12 +4,12 @@ namespace David_Studio_Server.Services
 {
     public interface IFile
     {
-        Task<IEnumerable<string>> UploadAsync(List<IFormFile> files, string storedFilePath);
+        Task<IEnumerable<string>> UploadAsync(IFormFileCollection files, string storedFilePath);
     }
 
     public class File : IFile
     {
-        public async Task<IEnumerable<string>> UploadAsync(List<IFormFile> files, string storedFilePath)
+        public async Task<IEnumerable<string>> UploadAsync(IFormFileCollection files, string storedFilePath)
         {
             List<string> filePaths = new List<string>();
 

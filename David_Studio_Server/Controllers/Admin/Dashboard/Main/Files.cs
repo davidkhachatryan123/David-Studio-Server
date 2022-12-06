@@ -28,8 +28,10 @@ namespace David_Studio_Server.Controllers.Admin.Dashboard.Main
         }
 
         [HttpPost, DisableRequestSizeLimit]
-        public async Task<ResponseModel> Upload(List<IFormFile> files)
+        public async Task<ResponseModel> Upload()
         {
+            var files = Request.Form.Files;
+
             IEnumerable<string> filePaths = await _file.UploadAsync(files, _configuration["FilesStorage:Images"]);
 
             if (filePaths.Count() <= 0)
