@@ -58,7 +58,7 @@ namespace David_Studio_Server.Controllers.Admin.Dashboard.Users
                     break;
             }
 
-            List<Models.Dashboard.Users.UserModel> users = new List<Models.Dashboard.Users.UserModel>();
+            List<Models.Dashboard.Users.UserViewModel> users = new List<Models.Dashboard.Users.UserViewModel>();
 
             IEnumerable<ApplicationUser> AppUsers = _userManager.Users;
 
@@ -72,7 +72,7 @@ namespace David_Studio_Server.Controllers.Admin.Dashboard.Users
             {
                 var roles = await _userManager.GetRolesAsync(AppUser);
 
-                users.Add(new Models.Dashboard.Users.UserModel(
+                users.Add(new Models.Dashboard.Users.UserViewModel(
                     AppUser.Id,
                     AppUser.UserName,
                     AppUser.Email,

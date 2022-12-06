@@ -2,10 +2,10 @@
 {
     public class UsersResponseModel
     {
-        public IEnumerable<UserModel>? Users { get; set; }
+        public IEnumerable<UserViewModel>? Users { get; set; }
         public int TotalCount { get; set; }
 
-        public UsersResponseModel(IEnumerable<UserModel>? users, int totalCount)
+        public UsersResponseModel(IEnumerable<UserViewModel>? users, int totalCount)
         {
             Users = users;
             TotalCount = totalCount;

@@ -24,12 +24,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\Admin\Dashboard\Main\" />
-    <Folder Include="Controllers\Admin\Dashboard\UIElements\Projects\" />
+    <Folder Include="Controllers\Admin\Dashboard\Portfolio\" />
+    <Folder Include="Controllers\Admin\Dashboard\Services\" />
+    <Folder Include="Controllers\Website\" />
     <Folder Include="Migrations\" />
-    <Folder Include="Models\Dashboard\Main\" />
-    <Folder Include="Models\Dashboard\UIElements\Projects\" />
-    <Folder Include="Models\Dashboard\UIElements\Services\" />
   </ItemGroup>
 
 </Project>

@@ -2,13 +2,13 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace David_Studio_Server.Controllers.Admin.Dashboard.UIElements.Services
+namespace David_Studio_Server.Controllers.Admin.Dashboard.Home
 {
     [Authorize(Roles = UserRoles.Admin + ", " + UserRoles.Manager)]
-    [Route("api/Admin/UIElements/[controller]")]
+    [Route("api/admin/[controller]")]
     [ApiController]
-    public class Services : ControllerBase
+    public class HomeServices : ControllerBase
     {
-
+        
     }
 }
