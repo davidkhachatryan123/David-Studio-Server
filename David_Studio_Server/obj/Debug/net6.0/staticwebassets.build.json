@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "P1c858anR7eS6NzQJjP6j11WWLdYY01z2FiGLgRIBu0=",
+  "Hash": "27ILMkLP8qiCHGjM7pqc87jui5q66qIj2S5OHr5eQo8=",
   "Source": "David_Studio_Server",
   "BasePath": "_content/David_Studio_Server",
   "Mode": "Default",
@@ -15,74 +15,5 @@
       "Pattern": "**"
     }
   ],
-  "Assets": [
-    {
-      "Identity": "D:\\Programming\\David_Studio_Server\\David_Studio_Server\\wwwroot\\uploads\\0c9666ab-9424-4cb0-8fef-c1e398b91d5a.png",
-      "SourceId": "David_Studio_Server",
-      "SourceType": "Discovered",
-      "ContentRoot": "D:\\Programming\\David_Studio_Server\\David_Studio_Server\\wwwroot\\",
-      "BasePath": "_content/David_Studio_Server",
-      "RelativePath": "uploads/0c9666ab-9424-4cb0-8fef-c1e398b91d5a.png",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\uploads\\0c9666ab-9424-4cb0-8fef-c1e398b91d5a.png"
-    },
-    {
-      "Identity": "D:\\Programming\\David_Studio_Server\\David_Studio_Server\\wwwroot\\uploads\\881314fd-db8a-442a-9438-1fc42bc6c050.png",
-      "SourceId": "David_Studio_Server",
-      "SourceType": "Discovered",
-      "ContentRoot": "D:\\Programming\\David_Studio_Server\\David_Studio_Server\\wwwroot\\",
-      "BasePath": "_content/David_Studio_Server",
-      "RelativePath": "uploads/881314fd-db8a-442a-9438-1fc42bc6c050.png",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\uploads\\881314fd-db8a-442a-9438-1fc42bc6c050.png"
-    },
-    {
-      "Identity": "D:\\Programming\\David_Studio_Server\\David_Studio_Server\\wwwroot\\uploads\\a266a390-a564-48a4-94ee-45e6d6073d26.png",
-      "SourceId": "David_Studio_Server",
-      "SourceType": "Discovered",
-      "ContentRoot": "D:\\Programming\\David_Studio_Server\\David_Studio_Server\\wwwroot\\",
-      "BasePath": "_content/David_Studio_Server",
-      "RelativePath": "uploads/a266a390-a564-48a4-94ee-45e6d6073d26.png",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\uploads\\a266a390-a564-48a4-94ee-45e6d6073d26.png"
-    },
-    {
-      "Identity": "D:\\Programming\\David_Studio_Server\\David_Studio_Server\\wwwroot\\uploads\\ffa6145a-d18c-4d4f-b2f4-3b55b289a3f9.png",
-      "SourceId": "David_Studio_Server",
-      "SourceType": "Discovered",
-      "ContentRoot": "D:\\Programming\\David_Studio_Server\\David_Studio_Server\\wwwroot\\",
-      "BasePath": "_content/David_Studio_Server",
-      "RelativePath": "uploads/ffa6145a-d18c-4d4f-b2f4-3b55b289a3f9.png",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\uploads\\ffa6145a-d18c-4d4f-b2f4-3b55b289a3f9.png"
-    }
-  ]
+  "Assets": []
 }

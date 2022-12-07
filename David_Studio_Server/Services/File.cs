@@ -5,6 +5,7 @@ namespace David_Studio_Server.Services
     public interface IFile
     {
         Task<IEnumerable<string>> UploadAsync(IFormFileCollection files, string storedFilePath);
+        bool RemoveFile(string filePath);
     }
 
     public class File : IFile
@@ -32,6 +33,19 @@ namespace David_Studio_Server.Services
             }
 
             return filePaths;
+        }
+
+        public bool RemoveFile(string filePath)
+        {
+            if (System.IO.File.Exists(Path.Combine("wwwroot", filePath)))
+            {
+                System.IO.File.Delete(Path.Combine("wwwroot", filePath));
+
+
+                return true;
+            }
+
+            return false;
         }
     }
 }
