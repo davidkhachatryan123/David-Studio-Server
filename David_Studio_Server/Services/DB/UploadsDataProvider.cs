@@ -4,7 +4,7 @@ namespace David_Studio_Server.Services.DB
 {
     public interface IUploadsDataProvider
     {
-        Task AddFileInfo(IEnumerable<Database.Models.Content.Uploads.File> images);
+        Task AddFileInfo(IEnumerable<Database.Models.Content.Uploads.File> files);
     }
 
     public class UploadsDataProvider : IUploadsDataProvider

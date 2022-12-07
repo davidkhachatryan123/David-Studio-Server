@@ -1,14 +1,17 @@
-﻿using David_Studio_Server.Database.Models.Content.Uploads;
+﻿using David_Studio_Server.Database;
 using David_Studio_Server.Models;
 using David_Studio_Server.Models.Auth;
+using David_Studio_Server.Models.Dashboard;
+using David_Studio_Server.Models.Dashboard.Main.Files;
 using David_Studio_Server.Services;
 using David_Studio_Server.Services.DB;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace David_Studio_Server.Controllers.Admin.Dashboard.Main
 {
-    [Authorize(Roles = UserRoles.Admin)]
+    [Authorize(Roles = UserRoles.Admin + "," + UserRoles.Manager)]
     [Route("api/admin/[controller]")]
     [ApiController]
     public class Files : ControllerBase
@@ -16,15 +19,18 @@ namespace David_Studio_Server.Controllers.Admin.Dashboard.Main
         private readonly IFile _file;
         private readonly IConfiguration _configuration;
         private readonly IUploadsDataProvider _uploads;
+        private readonly DavidStudioContext _context;
 
         public Files(
             IFile file,
             IConfiguration configuration,
-            IUploadsDataProvider uploads)
+            IUploadsDataProvider uploads,
+            DavidStudioContext context)
         {
             _file = file;
             _configuration = configuration;
             _uploads = uploads;
+            _context = context;
         }
 
         [HttpPost, DisableRequestSizeLimit]
@@ -52,6 +58,32 @@ namespace David_Studio_Server.Controllers.Admin.Dashboard.Main
 
 
             return new ResponseModel("File(s) uploaded successfully.", StatusCodes.Status200OK);
+        }
+
+        Func<Database.Models.Content.Uploads.File, Object> orderByFunc = null!;
+
+        [HttpGet]
+        public async Task<FilesResponseModel> GetList([FromQuery] TableOptions options)
+        {
+            switch (options.Sort.ToLower())
+            {
+                case FilesSort.Id:
+                    orderByFunc = x => x.Id;
+                    break;
+                case FilesSort.Name:
+                    orderByFunc = x => x.Name;
+                    break;
+            }
+
+            IEnumerable<Database.Models.Content.Uploads.File> files = _context.Files;
+
+            files = options.OrderDirection == "asc" ?
+                files.OrderBy(orderByFunc) : files.OrderByDescending(orderByFunc);
+
+            files = files.Skip((options.Page - 1) * options.PageSize)
+                         .Take(options.PageSize);
+
+            return new FilesResponseModel(files, await _context.Files.CountAsync());
         }
     }
 }

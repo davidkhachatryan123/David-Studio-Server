@@ -1,6 +1,7 @@
 ﻿using David_Studio_Server.Database.Models.Authentication;
 using David_Studio_Server.Models;
 using David_Studio_Server.Models.Auth;
+using David_Studio_Server.Models.Dashboard;
 using David_Studio_Server.Models.Dashboard.Users;
 using David_Studio_Server.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -37,7 +38,7 @@ namespace David_Studio_Server.Controllers.Admin.Dashboard.Users
         Func<ApplicationUser, Object> orderByFunc = null!;
 
         [HttpGet]
-        public async Task<UsersResponseModel> Get([FromQuery] UserListOptions options)
+        public async Task<UsersResponseModel> Get([FromQuery] TableOptions options)
         {
             switch (options.Sort.ToLower())
             {

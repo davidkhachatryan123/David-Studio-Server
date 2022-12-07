@@ -1,16 +1,20 @@
 {
   "Files": [
     {
-      "Id": "D:\\Programming\\David_Studio_Server\\David_Studio_Server\\wwwroot\\uploads\\images\\45c76f15-2f6a-4b51-a7e6-48da5d887b4a.png",
-      "PackagePath": "staticwebassets\\uploads\\images\\45c76f15-2f6a-4b51-a7e6-48da5d887b4a.png"
+      "Id": "D:\\Programming\\David_Studio_Server\\David_Studio_Server\\wwwroot\\uploads\\0c9666ab-9424-4cb0-8fef-c1e398b91d5a.png",
+      "PackagePath": "staticwebassets\\uploads\\0c9666ab-9424-4cb0-8fef-c1e398b91d5a.png"
     },
     {
-      "Id": "D:\\Programming\\David_Studio_Server\\David_Studio_Server\\wwwroot\\uploads\\images\\8e08085c-f380-4e36-b046-04f44ba11f4d.png",
-      "PackagePath": "staticwebassets\\uploads\\images\\8e08085c-f380-4e36-b046-04f44ba11f4d.png"
+      "Id": "D:\\Programming\\David_Studio_Server\\David_Studio_Server\\wwwroot\\uploads\\881314fd-db8a-442a-9438-1fc42bc6c050.png",
+      "PackagePath": "staticwebassets\\uploads\\881314fd-db8a-442a-9438-1fc42bc6c050.png"
     },
     {
-      "Id": "D:\\Programming\\David_Studio_Server\\David_Studio_Server\\wwwroot\\uploads\\images\\ed3bd1da-68b2-4d2c-be8a-967fb11e31a7.png",
-      "PackagePath": "staticwebassets\\uploads\\images\\ed3bd1da-68b2-4d2c-be8a-967fb11e31a7.png"
+      "Id": "D:\\Programming\\David_Studio_Server\\David_Studio_Server\\wwwroot\\uploads\\a266a390-a564-48a4-94ee-45e6d6073d26.png",
+      "PackagePath": "staticwebassets\\uploads\\a266a390-a564-48a4-94ee-45e6d6073d26.png"
+    },
+    {
+      "Id": "D:\\Programming\\David_Studio_Server\\David_Studio_Server\\wwwroot\\uploads\\ffa6145a-d18c-4d4f-b2f4-3b55b289a3f9.png",
+      "PackagePath": "staticwebassets\\uploads\\ffa6145a-d18c-4d4f-b2f4-3b55b289a3f9.png"
     },
     {
       "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.David_Studio_Server.Microsoft.AspNetCore.StaticWebAssets.props",
