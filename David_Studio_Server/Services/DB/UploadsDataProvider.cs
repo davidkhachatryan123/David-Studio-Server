@@ -4,7 +4,7 @@ namespace David_Studio_Server.Services.DB
 {
     public interface IUploadsDataProvider
     {
-        Task AddImagesInfo(IEnumerable<Database.Models.Content.Uploads.Image> images);
+        Task AddFileInfo(IEnumerable<Database.Models.Content.Uploads.File> images);
     }
 
     public class UploadsDataProvider : IUploadsDataProvider
@@ -16,10 +16,10 @@ namespace David_Studio_Server.Services.DB
             _context = context;
         }
 
-        public async Task AddImagesInfo(
-            IEnumerable<Database.Models.Content.Uploads.Image> images)
+        public async Task AddFileInfo(
+            IEnumerable<Database.Models.Content.Uploads.File> files)
         {
-            await _context.Images.AddRangeAsync(images);
+            await _context.Files.AddRangeAsync(files);
 
             await _context.SaveChangesAsync();
         }

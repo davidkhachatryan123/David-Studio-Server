@@ -30,24 +30,25 @@ namespace David_Studio_Server.Controllers.Admin.Dashboard.Main
         [HttpPost, DisableRequestSizeLimit]
         public async Task<ResponseModel> Upload()
         {
-            var files = Request.Form.Files;
+            var formFiles = Request.Form.Files;
 
-            IEnumerable<string> filePaths = await _file.UploadAsync(files, _configuration["FilesStorage:Images"]);
+            IEnumerable<string> filePaths = await _file.UploadAsync(formFiles, _configuration["FilesStorage:Files"]);
 
             if (filePaths.Count() <= 0)
                 return new ResponseModel("File(s) upload error.", StatusCodes.Status500InternalServerError);
 
 
-            IEnumerable<Image> images = files.Select(x => x.FileName).Zip(filePaths, (name, path) =>
-            {
-                return new Image()
+            IEnumerable<Database.Models.Content.Uploads.File> files =
+                formFiles.Select(x => x.FileName).Zip(filePaths, (name, path) =>
                 {
-                    Name = name,
-                    Url = path
-                };
-            });
+                    return new Database.Models.Content.Uploads.File()
+                    {
+                        Name = name,
+                        Path = path
+                    };
+                });
 
-            await _uploads.AddImagesInfo(images);
+            await _uploads.AddFileInfo(files);
 
 
             return new ResponseModel("File(s) uploaded successfully.", StatusCodes.Status200OK);

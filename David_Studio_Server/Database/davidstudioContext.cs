@@ -16,7 +16,7 @@ namespace David_Studio_Server.Database
         public DbSet<Translation> Translations { get; set; } = null!;
         public DbSet<Language> Languages { get; set; } = null!;
 
-        public DbSet<Image> Images { get; set; } = null!;
+        public DbSet<Models.Content.Uploads.File> Files { get; set; } = null!;
 
         public DavidStudioContext(DbContextOptions<DavidStudioContext> options)
             : base(options)

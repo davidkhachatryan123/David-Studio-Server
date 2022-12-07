@@ -29,7 +29,7 @@
     <Folder Include="Controllers\Admin\Dashboard\Services\" />
     <Folder Include="Controllers\Website\" />
     <Folder Include="Migrations\" />
-    <Folder Include="wwwroot\uploads\images\" />
+    <Folder Include="wwwroot\uploads\" />
   </ItemGroup>
 
 </Project>

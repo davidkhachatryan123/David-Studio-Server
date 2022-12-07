@@ -17,7 +17,7 @@ namespace David_Studio_Server.Database.Models.Content.Services
         public int ImgId { get; set; }
 
         [JsonIgnore]
-        public virtual Image Image { get; set; } = null!;
+        public virtual Uploads.File Image { get; set; } = null!;
         [JsonIgnore]
         public virtual ICollection<ServiceTranslation> ServiceTranslations { get; set; }
     }

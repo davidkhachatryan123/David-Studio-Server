@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "nNQfAXFCr5kdU9u9CikwxdDX+Qh3TNxcI6aJBNE3X+E=",
+  "Hash": "27ILMkLP8qiCHGjM7pqc87jui5q66qIj2S5OHr5eQo8=",
   "Source": "David_Studio_Server",
   "BasePath": "_content/David_Studio_Server",
   "Mode": "Default",
@@ -15,23 +15,5 @@
       "Pattern": "**"
     }
   ],
-  "Assets": [
-    {
-      "Identity": "D:\\Programming\\David_Studio_Server\\David_Studio_Server\\wwwroot\\uploads\\images\\45c76f15-2f6a-4b51-a7e6-48da5d887b4a.png",
-      "SourceId": "David_Studio_Server",
-      "SourceType": "Discovered",
-      "ContentRoot": "D:\\Programming\\David_Studio_Server\\David_Studio_Server\\wwwroot\\",
-      "BasePath": "_content/David_Studio_Server",
-      "RelativePath": "uploads/images/45c76f15-2f6a-4b51-a7e6-48da5d887b4a.png",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\uploads\\images\\45c76f15-2f6a-4b51-a7e6-48da5d887b4a.png"
-    }
-  ]
+  "Assets": []
 }
