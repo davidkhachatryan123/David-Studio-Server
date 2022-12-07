@@ -38,13 +38,15 @@ namespace David_Studio_Server.Controllers.Admin.Auth
         [HttpGet]
         public async Task<ClientUserModel> GetUser()
         {
-            var result = await _userManager.GetUserAsync(User);
+            var appUser = await _userManager.GetUserAsync(User);
+            var roles = await _userManager.GetRolesAsync(appUser);
 
             return new ClientUserModel()
             {
-                UserName = result.UserName,
-                Email = result.Email,
-                PhoneNumber = result.PhoneNumber,
+                UserName = appUser.UserName,
+                Email = appUser.Email,
+                PhoneNumber = appUser.PhoneNumber,
+                Role = roles.First()
             };
         }
 

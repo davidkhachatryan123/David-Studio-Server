@@ -1,20 +1,28 @@
 {
   "Files": [
     {
-      "Id": "D:\\Programming\\David_Studio_Server\\David_Studio_Server\\wwwroot\\uploads\\0c9666ab-9424-4cb0-8fef-c1e398b91d5a.png",
-      "PackagePath": "staticwebassets\\uploads\\0c9666ab-9424-4cb0-8fef-c1e398b91d5a.png"
+      "Id": "D:\\Programming\\David_Studio_Server\\David_Studio_Server\\wwwroot\\uploads\\58edb697-3bd8-48cb-a719-5efb5c743c92.png",
+      "PackagePath": "staticwebassets\\uploads\\58edb697-3bd8-48cb-a719-5efb5c743c92.png"
     },
     {
-      "Id": "D:\\Programming\\David_Studio_Server\\David_Studio_Server\\wwwroot\\uploads\\881314fd-db8a-442a-9438-1fc42bc6c050.png",
-      "PackagePath": "staticwebassets\\uploads\\881314fd-db8a-442a-9438-1fc42bc6c050.png"
+      "Id": "D:\\Programming\\David_Studio_Server\\David_Studio_Server\\wwwroot\\uploads\\6ad6cd87-46e9-4393-ae5b-6e13ead415db.jpg",
+      "PackagePath": "staticwebassets\\uploads\\6ad6cd87-46e9-4393-ae5b-6e13ead415db.jpg"
     },
     {
-      "Id": "D:\\Programming\\David_Studio_Server\\David_Studio_Server\\wwwroot\\uploads\\a266a390-a564-48a4-94ee-45e6d6073d26.png",
-      "PackagePath": "staticwebassets\\uploads\\a266a390-a564-48a4-94ee-45e6d6073d26.png"
+      "Id": "D:\\Programming\\David_Studio_Server\\David_Studio_Server\\wwwroot\\uploads\\8d52221c-9a8a-47ff-bb74-1bf1a76fb817.jpg",
+      "PackagePath": "staticwebassets\\uploads\\8d52221c-9a8a-47ff-bb74-1bf1a76fb817.jpg"
     },
     {
-      "Id": "D:\\Programming\\David_Studio_Server\\David_Studio_Server\\wwwroot\\uploads\\ffa6145a-d18c-4d4f-b2f4-3b55b289a3f9.png",
-      "PackagePath": "staticwebassets\\uploads\\ffa6145a-d18c-4d4f-b2f4-3b55b289a3f9.png"
+      "Id": "D:\\Programming\\David_Studio_Server\\David_Studio_Server\\wwwroot\\uploads\\a526d28b-d39d-4f73-9ee1-17ef9852e71a.jpg",
+      "PackagePath": "staticwebassets\\uploads\\a526d28b-d39d-4f73-9ee1-17ef9852e71a.jpg"
+    },
+    {
+      "Id": "D:\\Programming\\David_Studio_Server\\David_Studio_Server\\wwwroot\\uploads\\d4dcaf55-dab7-4afb-803f-452f1d2316b6.png",
+      "PackagePath": "staticwebassets\\uploads\\d4dcaf55-dab7-4afb-803f-452f1d2316b6.png"
+    },
+    {
+      "Id": "D:\\Programming\\David_Studio_Server\\David_Studio_Server\\wwwroot\\uploads\\e7f2e7fb-ad90-4dcf-b8a8-691c86359992.jpg",
+      "PackagePath": "staticwebassets\\uploads\\e7f2e7fb-ad90-4dcf-b8a8-691c86359992.jpg"
     },
     {
       "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.David_Studio_Server.Microsoft.AspNetCore.StaticWebAssets.props",
