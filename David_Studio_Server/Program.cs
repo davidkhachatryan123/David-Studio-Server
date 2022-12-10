@@ -1,7 +1,9 @@
 using David_Studio_Server.Database;
 using David_Studio_Server.Database.Models.Authentication;
 using David_Studio_Server.Services;
-using David_Studio_Server.Services.DB;
+using David_Studio_Server.Services.DB.Home;
+using David_Studio_Server.Services.DB.Main;
+using David_Studio_Server.Services.DB.Shared;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -54,6 +56,8 @@ builder.Services.Configure<IdentityOptions>(options =>
 builder.Services.AddScoped<IEmail, Email>();
 builder.Services.AddScoped<IFile, David_Studio_Server.Services.File>();
 builder.Services.AddScoped<IUploadsDataProvider, UploadsDataProvider>();
+builder.Services.AddScoped<ILanguagesDataProvider, LanguagesDataProvider>();
+builder.Services.AddScoped<IHomeServicesDataProvider, HomeServicesDataProvider>();
 
 builder.Services.AddControllers();
 

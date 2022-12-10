@@ -14,7 +14,7 @@ namespace David_Studio_Server.Database.Models.Content.Services
         public string GroupName { get; set; } = null!;
         public string ButtonColor { get; set; } = null!;
         public string Href { get; set; } = null!;
-        public int ImgId { get; set; }
+        public int ImageId { get; set; }
 
         [JsonIgnore]
         public virtual Uploads.File Image { get; set; } = null!;

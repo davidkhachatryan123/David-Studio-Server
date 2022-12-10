@@ -1,6 +1,6 @@
 ﻿using David_Studio_Server.Database;
 
-namespace David_Studio_Server.Services.DB
+namespace David_Studio_Server.Services.DB.Main
 {
     public interface IUploadsDataProvider
     {

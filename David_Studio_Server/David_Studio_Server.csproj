@@ -24,7 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\Admin\Dashboard\Home\" />
     <Folder Include="Controllers\Admin\Dashboard\Portfolio\" />
     <Folder Include="Controllers\Admin\Dashboard\Services\" />
     <Folder Include="Controllers\Website\" />

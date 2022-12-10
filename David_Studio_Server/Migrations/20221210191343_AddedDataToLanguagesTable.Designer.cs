@@ -3,6 +3,7 @@ using System;
 using David_Studio_Server.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace David_Studio_Server.Migrations
 {
     [DbContext(typeof(DavidStudioContext))]
-    partial class DavidStudioContextModelSnapshot : ModelSnapshot
+    [Migration("20221210191343_AddedDataToLanguagesTable")]
+    partial class AddedDataToLanguagesTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -111,10 +113,10 @@ namespace David_Studio_Server.Migrations
                     b.Property<int>("ImageId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.Property<int>("ImgId")
+                        .HasColumnType("int");
 
-                    b.HasIndex("GroupName")
-                        .IsUnique();
+                    b.HasKey("Id");
 
                     b.HasIndex("ImageId");
 
