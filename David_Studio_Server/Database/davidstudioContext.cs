@@ -11,7 +11,8 @@ namespace David_Studio_Server.Database
     public partial class DavidStudioContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Service> Services { get; set; } = null!;
-        public DbSet<HomeServiceTranslation> ServiceTranslations  { get; set; } = null!;
+        public DbSet<HomeService> HomeServices { get; set; } = null!;
+        public DbSet<HomeServiceTranslation> HomeServiceTranslations { get; set; } = null!;
 
         public DbSet<Translation> Translations { get; set; } = null!;
         public DbSet<Language> Languages { get; set; } = null!;

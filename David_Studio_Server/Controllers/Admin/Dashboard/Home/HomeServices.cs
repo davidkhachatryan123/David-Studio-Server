@@ -1,4 +1,5 @@
 ﻿using David_Studio_Server.Database.Models.Content.Services;
+using David_Studio_Server.Models;
 using David_Studio_Server.Models.Dashboard.Home;
 using David_Studio_Server.Services.DB.Home;
 using Microsoft.AspNetCore.Authorization;
@@ -18,19 +19,19 @@ namespace David_Studio_Server.Controllers.Admin.Dashboard.Home
             _homeServices = homeServices;
         }
 
-        [Route("groups")]
+        [Route("services")]
         [HttpGet]
-        public async Task<IEnumerable<Service>> GetGroups()
+        public async Task<IEnumerable<Service>> GetServices()
         {
-            return await _homeServices.GetGroupsAsync();
+            return await _homeServices.GetServicesAsync();
         }
 
         [HttpPost]
-        public async Task<HomeServiceData> DataUpdate(HomeServiceData homeServiceData)
+        public async Task<ResponseModel> DataUpdate([FromBody] HomeServiceData homeServiceData)
         {
+            var result = await _homeServices.UpdateHomeServiceAsync(homeServiceData);
 
-
-            return new HomeServiceData();
+            return new ResponseModel("", StatusCodes.Status200OK);
         }
     }
 }

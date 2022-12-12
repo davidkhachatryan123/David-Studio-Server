@@ -15,7 +15,7 @@ namespace David_Studio_Server.Services
     {
         bool SendEmail(string to, string subject, string message);
 
-        Task<bool> SendConfirmEmailAsync(ApplicationUser user, string confirmationLink);
+        bool SendConfirmEmailAsync(ApplicationUser user, string confirmationLink);
 
         string GetEmailConfirmationPage(string confirmationLink);
         string RedirectToLogin(string loginUrl);
@@ -62,7 +62,7 @@ namespace David_Studio_Server.Services
             return false;
         }
 
-        public async Task<bool> SendConfirmEmailAsync(ApplicationUser user, string confirmationLink)
+        public bool SendConfirmEmailAsync(ApplicationUser user, string confirmationLink)
         {
             var emailBody = GetEmailConfirmationPage(confirmationLink!);
 

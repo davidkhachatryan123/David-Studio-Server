@@ -9,7 +9,6 @@ namespace David_Studio_Server.Database.ModelConfigrations.Content.Services
         protected override void AddBuilder(EntityTypeBuilder<HomeService> builder)
         {
             builder.Property(x => x.ButtonColor).HasMaxLength(Configuration.TinyTextLength);
-            builder.Property(x => x.Path).HasMaxLength(Configuration.TextLength);
         }
 
         protected override string TableName()

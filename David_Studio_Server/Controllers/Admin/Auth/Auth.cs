@@ -91,7 +91,7 @@ namespace David_Studio_Server.Controllers.Admin.Auth
                     var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     var confirmationLink = Url.Action("ConfirmEmail", nameof(Auth), new { token, email = user.Email }, Request.Scheme);
 
-                    bool sended = await _email.SendConfirmEmailAsync(user, confirmationLink!);
+                    bool sended = _email.SendConfirmEmailAsync(user, confirmationLink!);
 
                     if (sended)
                         return new ResponseModel(

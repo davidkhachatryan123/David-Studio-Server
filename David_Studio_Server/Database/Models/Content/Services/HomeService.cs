@@ -11,7 +11,6 @@ namespace David_Studio_Server.Database.Models.Content.Services
         }
 
         public string ButtonColor { get; set; } = null!;
-        public string Path { get; set; } = null!;
         public int ImageId { get; set; }
         public int ServiceId { get; set; }
 
