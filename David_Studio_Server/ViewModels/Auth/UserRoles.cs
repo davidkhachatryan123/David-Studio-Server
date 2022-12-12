@@ -1,4 +1,4 @@
-﻿namespace David_Studio_Server.Models.Auth
+﻿namespace David_Studio_Server.ViewModels.Auth
 {
     public class UserRoles
     {

@@ -1,4 +1,4 @@
-﻿namespace David_Studio_Server.Models
+﻿namespace David_Studio_Server.ViewModels
 {
     public class ResponseModel
     {

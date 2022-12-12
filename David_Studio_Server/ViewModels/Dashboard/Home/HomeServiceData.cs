@@ -1,7 +1,7 @@
 ﻿using David_Studio_Server.Database.Models.Content.Services;
 using David_Studio_Server.Database.Models.Content.Translation;
 
-namespace David_Studio_Server.Models.Dashboard.Home
+namespace David_Studio_Server.ViewModels.Dashboard.Home
 {
     public class HomeServiceData
     {

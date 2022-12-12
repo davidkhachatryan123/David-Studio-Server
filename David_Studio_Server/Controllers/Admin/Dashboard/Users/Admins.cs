@@ -1,8 +1,8 @@
 ﻿using David_Studio_Server.Database.Models.Authentication;
-using David_Studio_Server.Models;
-using David_Studio_Server.Models.Auth;
-using David_Studio_Server.Models.Dashboard;
-using David_Studio_Server.Models.Dashboard.Users;
+using David_Studio_Server.ViewModels;
+using David_Studio_Server.ViewModels.Auth;
+using David_Studio_Server.ViewModels.Dashboard;
+using David_Studio_Server.ViewModels.Dashboard.Users;
 using David_Studio_Server.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -59,7 +59,7 @@ namespace David_Studio_Server.Controllers.Admin.Dashboard.Users
                     break;
             }
 
-            List<Models.Dashboard.Users.UserViewModel> users = new List<Models.Dashboard.Users.UserViewModel>();
+            List<ViewModels.Dashboard.Users.UserViewModel> users = new List<ViewModels.Dashboard.Users.UserViewModel>();
 
             IEnumerable<ApplicationUser> AppUsers = _userManager.Users;
 
@@ -73,7 +73,7 @@ namespace David_Studio_Server.Controllers.Admin.Dashboard.Users
             {
                 var roles = await _userManager.GetRolesAsync(AppUser);
 
-                users.Add(new Models.Dashboard.Users.UserViewModel(
+                users.Add(new ViewModels.Dashboard.Users.UserViewModel(
                     AppUser.Id,
                     AppUser.UserName,
                     AppUser.Email,

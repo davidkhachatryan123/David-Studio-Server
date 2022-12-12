@@ -1,4 +1,4 @@
-﻿namespace David_Studio_Server.Models.Dashboard.Users
+﻿namespace David_Studio_Server.ViewModels.Dashboard.Users
 {
     public class UsersResponseModel
     {

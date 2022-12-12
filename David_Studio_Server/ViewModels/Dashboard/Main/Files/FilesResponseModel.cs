@@ -1,4 +1,4 @@
-﻿namespace David_Studio_Server.Models.Dashboard.Main.Files
+﻿namespace David_Studio_Server.ViewModels.Dashboard.Main.Files
 {
     public class FilesResponseModel
     {

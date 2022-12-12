@@ -1,7 +1,7 @@
 ﻿using David_Studio_Server.Database;
 using David_Studio_Server.Database.Models.Content.Services;
 using David_Studio_Server.Database.Models.Content.Translation;
-using David_Studio_Server.Models.Dashboard.Home;
+using David_Studio_Server.ViewModels.Dashboard.Home;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
@@ -10,8 +10,11 @@ namespace David_Studio_Server.Services.DB.Home
     public interface IHomeServicesDataProvider
     {
         Task<IEnumerable<Service>> GetServicesAsync();
+
         Task<bool> AddNewHomeServiceAsync(HomeServiceData homeServiceData);
         Task<bool> UpdateHomeServiceAsync(HomeServiceData homeServiceData);
+
+        Task<HomeServiceData> GetHomeServiceData(int ServiceId);
     }
 
     public class HomeServicesDataProvider : IHomeServicesDataProvider
@@ -89,23 +92,50 @@ namespace David_Studio_Server.Services.DB.Home
 
         public async Task<bool> UpdateHomeServiceAsync(HomeServiceData homeServiceData)
         {
-            Translation? title = await _context.Translations
+            try
+            {
+                Translation? title = await _context.Translations
                 .Include(x => x.Language)
                 .Include(x => x.ServiceTitleTranslations.Where(y => y.HomeServiceId == homeServiceData.HomeServiceId))
                 .Where(x => x.Language.Id == homeServiceData.LanguageId)
                 .Where(x => x.ServiceTitleTranslations.Any())
                 .FirstOrDefaultAsync();
 
-            Translation? description = await _context.Translations
-                .Include(x => x.Language)
-                .Include(x => x.ServiceDescriptionTranslations.Where(y => y.HomeServiceId == homeServiceData.HomeServiceId))
-                .Where(x => x.Language.Id == homeServiceData.LanguageId)
-                .Where(x => x.ServiceDescriptionTranslations.Any())
-                .FirstOrDefaultAsync();
+                Translation? description = await _context.Translations
+                    .Include(x => x.Language)
+                    .Include(x => x.ServiceDescriptionTranslations.Where(y => y.HomeServiceId == homeServiceData.HomeServiceId))
+                    .Where(x => x.Language.Id == homeServiceData.LanguageId)
+                    .Where(x => x.ServiceDescriptionTranslations.Any())
+                    .FirstOrDefaultAsync();
 
+                HomeService? homeService = await _context.HomeServices
+                    .FirstOrDefaultAsync(x => x.Id == homeServiceData.HomeServiceId);
 
+                if (title != null && description != null && homeService != null)
+                {
+                    title.Text = homeServiceData.Title;
+                    description.Text = homeServiceData.Description;
+
+                    homeService.ButtonColor = homeServiceData.ButtonColor;
+                    homeService.ImageId = homeServiceData.ImageId;
+
+                    _context.UpdateRange(title, description);
+                    _context.Update(homeService);
+
+                    await _context.SaveChangesAsync();
+                }
+            }
+            catch
+            {
+                return false;
+            }
 
             return true;
+        }
+
+        public async Task<HomeServiceData> GetHomeServiceData(int ServiceId)
+        {
+            return new HomeServiceData();
         }
     }
 }

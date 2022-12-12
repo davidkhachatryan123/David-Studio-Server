@@ -1,6 +1,6 @@
 ﻿using David_Studio_Server.Database.Models.Authentication;
-using David_Studio_Server.Models;
-using David_Studio_Server.Models.Auth;
+using David_Studio_Server.ViewModels;
+using David_Studio_Server.ViewModels.Auth;
 using David_Studio_Server.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;

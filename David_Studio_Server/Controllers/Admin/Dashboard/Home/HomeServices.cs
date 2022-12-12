@@ -1,7 +1,7 @@
 ﻿using David_Studio_Server.Database;
 using David_Studio_Server.Database.Models.Content.Services;
-using David_Studio_Server.Models;
-using David_Studio_Server.Models.Dashboard.Home;
+using David_Studio_Server.ViewModels;
+using David_Studio_Server.ViewModels.Dashboard.Home;
 using David_Studio_Server.Services.DB.Home;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

@@ -1,4 +1,4 @@
-﻿namespace David_Studio_Server.Models.Dashboard
+﻿namespace David_Studio_Server.ViewModels.Dashboard
 {
     public class TableOptions
     {

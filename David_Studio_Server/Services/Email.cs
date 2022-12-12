@@ -1,6 +1,6 @@
 ﻿using David_Studio_Server.Controllers.Admin.Auth;
-using David_Studio_Server.Models.Dashboard.Users;
-using David_Studio_Server.Models;
+using David_Studio_Server.ViewModels.Dashboard.Users;
+using David_Studio_Server.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using System.Net.Mail;
 using System.Security.Policy;
