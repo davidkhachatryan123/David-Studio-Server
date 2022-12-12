@@ -97,7 +97,7 @@ namespace David_Studio_Server.Services.DB.Home
             {
                 Service? service = await GetServiceAsync(homeServiceData.ServiceId);
 
-                if (service!.HomeService == null) return false;
+                if (service == null || service.HomeService == null) return false;
 
                 service.HomeService.HomeServiceTranslations.FirstOrDefault()!.TitleTranslation.Text
                     = homeServiceData.Title;
@@ -122,7 +122,7 @@ namespace David_Studio_Server.Services.DB.Home
         {
             Service? service = await GetServiceAsync(ServiceId);
 
-            if (service!.HomeService == null) return null;
+            if (service == null || service.HomeService == null) return null;
 
             return new HomeServiceData()
             {

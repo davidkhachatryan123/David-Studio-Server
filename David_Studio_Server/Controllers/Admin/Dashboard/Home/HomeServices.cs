@@ -53,7 +53,10 @@ namespace David_Studio_Server.Controllers.Admin.Dashboard.Home
                 result = await _homeServices.UpdateHomeServiceAsync(homeServiceData);
             }
 
-            return new ResponseModel(result.ToString(), StatusCodes.Status200OK);
+            return ResponseModel.GetResponse(
+                    result,
+                    "Data successfully saved!", StatusCodes.Status200OK,
+                    "Internal server error, please try again later!", StatusCodes.Status500InternalServerError);
         }
     }
 }
