@@ -8,8 +8,8 @@ namespace David_Studio_Server.Database.Models.Content.Translation
     {
         public Translation()
         {
-            ServiceTitleTranslations = new HashSet<ServiceTranslation>();
-            ServiceDescriptionTranslations = new HashSet<ServiceTranslation>();
+            ServiceTitleTranslations = new HashSet<HomeServiceTranslation>();
+            ServiceDescriptionTranslations = new HashSet<HomeServiceTranslation>();
         }
 
         public string Text { get; set; } = null!;
@@ -18,8 +18,8 @@ namespace David_Studio_Server.Database.Models.Content.Translation
         [JsonIgnore]
         public virtual Language Language { get; set; } = null!;
         [JsonIgnore]
-        public virtual ICollection<ServiceTranslation> ServiceTitleTranslations { get; set; }
+        public virtual ICollection<HomeServiceTranslation> ServiceTitleTranslations { get; set; }
         [JsonIgnore]
-        public virtual ICollection<ServiceTranslation> ServiceDescriptionTranslations { get; set; }
+        public virtual ICollection<HomeServiceTranslation> ServiceDescriptionTranslations { get; set; }
     }
 }

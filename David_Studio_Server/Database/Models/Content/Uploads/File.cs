@@ -9,13 +9,13 @@ namespace David_Studio_Server.Database.Models.Content.Uploads
 
         public File()
         {
-            Services = new HashSet<Service>();
+            HomeServices = new HashSet<HomeService>();
         }
 
         public string Name { get; set; } = null!;
         public string Path { get; set; } = null!;
 
         [JsonIgnore]
-        public virtual ICollection<Service> Services { get; set; }
+        public virtual ICollection<HomeService> HomeServices { get; set; }
     }
 }

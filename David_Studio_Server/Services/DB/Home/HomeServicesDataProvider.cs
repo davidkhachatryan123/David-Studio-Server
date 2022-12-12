@@ -1,11 +1,12 @@
 ﻿using David_Studio_Server.Database;
+using David_Studio_Server.Database.Models.Content.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace David_Studio_Server.Services.DB.Home
 {
     public interface IHomeServicesDataProvider
     {
-        Task<IEnumerable<string>> GetGroupsAsync();
+        Task<IEnumerable<Service>> GetGroupsAsync();
     }
 
     public class HomeServicesDataProvider : IHomeServicesDataProvider
@@ -17,11 +18,9 @@ namespace David_Studio_Server.Services.DB.Home
             _context = context;
         }
 
-        public async Task<IEnumerable<string>> GetGroupsAsync()
+        public async Task<IEnumerable<Service>> GetGroupsAsync()
         {
             return await _context.Services
-                .Select(x => x.GroupName)
-                .Distinct()
                 .ToArrayAsync();
         }
     }

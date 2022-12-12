@@ -6,19 +6,9 @@ namespace David_Studio_Server.Database.Models.Content.Services
 {
     public class Service : Identity
     {
-        public Service()
-        {
-            ServiceTranslations = new HashSet<ServiceTranslation>();
-        }
-
-        public string GroupName { get; set; } = null!;
-        public string ButtonColor { get; set; } = null!;
-        public string Href { get; set; } = null!;
-        public int ImageId { get; set; }
+        public string Name { get; set; } = null!;
 
         [JsonIgnore]
-        public virtual Uploads.File Image { get; set; } = null!;
-        [JsonIgnore]
-        public virtual ICollection<ServiceTranslation> ServiceTranslations { get; set; }
+        public virtual HomeService HomeService { get; set; } = null!;
     }
 }

@@ -3,6 +3,7 @@ using System;
 using David_Studio_Server.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace David_Studio_Server.Migrations
 {
     [DbContext(typeof(DavidStudioContext))]
-    partial class DavidStudioContextModelSnapshot : ModelSnapshot
+    [Migration("20221212100846_ChangedServicesStructure")]
+    partial class ChangedServicesStructure
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -123,8 +125,7 @@ namespace David_Studio_Server.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("Id");
+                        .HasColumnType("int");
 
                     b.Property<int>("DescriptionTranslationId")
                         .HasColumnType("int");
@@ -143,7 +144,7 @@ namespace David_Studio_Server.Migrations
 
                     b.HasIndex("TitleTranslationId");
 
-                    b.ToTable("HomeServiceTranslations", (string)null);
+                    b.ToTable("ServiceTranslations");
                 });
 
             modelBuilder.Entity("David_Studio_Server.Database.Models.Content.Services.Service", b =>
@@ -153,12 +154,17 @@ namespace David_Studio_Server.Migrations
                         .HasColumnType("int")
                         .HasColumnName("Id");
 
+                    b.Property<int?>("FileId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(64)
                         .HasColumnType("varchar(64)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("FileId");
 
                     b.HasIndex("Name")
                         .IsUnique();
@@ -405,7 +411,7 @@ namespace David_Studio_Server.Migrations
             modelBuilder.Entity("David_Studio_Server.Database.Models.Content.Services.HomeService", b =>
                 {
                     b.HasOne("David_Studio_Server.Database.Models.Content.Uploads.File", "Image")
-                        .WithMany("HomeServices")
+                        .WithMany()
                         .HasForeignKey("ImageId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -446,6 +452,13 @@ namespace David_Studio_Server.Migrations
                     b.Navigation("HomeService");
 
                     b.Navigation("TitleTranslation");
+                });
+
+            modelBuilder.Entity("David_Studio_Server.Database.Models.Content.Services.Service", b =>
+                {
+                    b.HasOne("David_Studio_Server.Database.Models.Content.Uploads.File", null)
+                        .WithMany("Services")
+                        .HasForeignKey("FileId");
                 });
 
             modelBuilder.Entity("David_Studio_Server.Database.Models.Content.Translation.Translation", b =>
@@ -535,7 +548,7 @@ namespace David_Studio_Server.Migrations
 
             modelBuilder.Entity("David_Studio_Server.Database.Models.Content.Uploads.File", b =>
                 {
-                    b.Navigation("HomeServices");
+                    b.Navigation("Services");
                 });
 #pragma warning restore 612, 618
         }
