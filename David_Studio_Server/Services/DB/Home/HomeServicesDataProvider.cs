@@ -14,7 +14,7 @@ namespace David_Studio_Server.Services.DB.Home
         Task<bool> AddNewHomeServiceAsync(HomeServiceData homeServiceData);
         Task<bool> UpdateHomeServiceAsync(HomeServiceData homeServiceData);
 
-        Task<HomeServiceData> GetHomeServiceData(int ServiceId);
+        Task<HomeServiceData?> GetHomeServiceDataAsync(int ServiceId);
     }
 
     public class HomeServicesDataProvider : IHomeServicesDataProvider
@@ -133,9 +133,33 @@ namespace David_Studio_Server.Services.DB.Home
             return true;
         }
 
-        public async Task<HomeServiceData> GetHomeServiceData(int ServiceId)
+        public async Task<HomeServiceData?> GetHomeServiceDataAsync(int ServiceId)
         {
-            return new HomeServiceData();
+            Service? service = await _context.Services
+                .Include(x => x.HomeService)
+                .ThenInclude(x => x.HomeServiceTranslations)
+                .ThenInclude(x => x.TitleTranslation)
+
+                .Include(x => x.HomeService)
+                .ThenInclude(x => x.HomeServiceTranslations)
+                .ThenInclude(x => x.DescriptionTranslation)
+
+                .ThenInclude(x => x.Language)
+
+                .FirstOrDefaultAsync(x => x.Id == ServiceId);
+
+            if (service.HomeService == null) return null;
+
+            return new HomeServiceData()
+            {
+                ServiceId = service.Id,
+                HomeServiceId = service.HomeService.Id,
+                LanguageId = service.HomeService.HomeServiceTranslations.FirstOrDefault()!.TitleTranslation.LanguageId,
+                Title = service.HomeService.HomeServiceTranslations.FirstOrDefault()!.TitleTranslation.Text,
+                Description = service.HomeService.HomeServiceTranslations.FirstOrDefault()!.DescriptionTranslation.Text,
+                ButtonColor = service.HomeService.ButtonColor,
+                ImageId = service.HomeService.ImageId
+            };
         }
     }
 }

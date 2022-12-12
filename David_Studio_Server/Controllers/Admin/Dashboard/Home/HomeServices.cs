@@ -32,6 +32,12 @@ namespace David_Studio_Server.Controllers.Admin.Dashboard.Home
             return await _homeServices.GetServicesAsync();
         }
 
+        [HttpGet]
+        public async Task<HomeServiceData?> Get(int ServiceId)
+        {
+            return await _homeServices.GetHomeServiceDataAsync(ServiceId);
+        }
+
         [HttpPost]
         public async Task<ResponseModel> Post([FromBody] HomeServiceData homeServiceData)
         {
